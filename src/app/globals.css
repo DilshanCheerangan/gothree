@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-void: #000000;
+  --color-brand-deep: #0a0908;
+  --color-brand-charcoal: #111110;
+  --color-brand-smoke: #1c1b19;
+  --color-brand-ash: #2e2d2b;
+  --color-brand-mist: #5c5a56;
+  --color-brand-silver: #8a8780;
+  --color-brand-warm: #c8c2b8;
+  --color-brand-cream: #e8e3db;
+  --color-brand-white: #f5f2ed;
+  --color-brand-accent: #b8935a;
+}
+
+:root {
+  --background: var(--color-brand-deep);
+  --foreground: var(--color-brand-white);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .display-font {
+  font-family: var(--font-space), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Glass effect utilities missing from Tailwind core */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px var(--color-brand-mist);
+  color: transparent;
+}
+
+.text-stroke-hover:hover {
+  -webkit-text-stroke: 1px transparent;
+  color: var(--color-brand-white);
+}
+
+/* Hide scrollbar for a cleaner feel */
+::-webkit-scrollbar {
+  display: none;
+}
+html {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

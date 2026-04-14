@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-void: #000000;
-  --color-brand-deep: #0a0908;
-  --color-brand-charcoal: #111110;
-  --color-brand-smoke: #1c1b19;
-  --color-brand-ash: #2e2d2b;
-  --color-brand-mist: #5c5a56;
-  --color-brand-silver: #8a8780;
-  --color-brand-warm: #c8c2b8;
-  --color-brand-cream: #e8e3db;
-  --color-brand-white: #f5f2ed;
-  --color-brand-accent: #b8935a;
+  --color-brand-void: #ffffff;
+  --color-brand-deep: #f8f6f2; /* Light creamy background */
+  --color-brand-charcoal: #f0ede8;
+  --color-brand-smoke: #e8e3db;
+  --color-brand-ash: #c8c2b8;
+  --color-brand-mist: #8a8780;
+  --color-brand-silver: #5c5a56;
+  --color-brand-warm: #2e2d2b;
+  --color-brand-cream: #1c1b19;
+  --color-brand-white: #0a0908; /* Dark text */
+  --color-brand-accent: #a67c3b; /* Slightly deeper gold for contrast on light */
 }
 
 :root {
@@ -32,15 +32,17 @@ h1, h2, h3, h4, .display-font {
 }
 
 /* Glass effect utilities missing from Tailwind core */
+/* Glass effect utilities adapted for Light Mode */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
 }
 
 .text-stroke {
-  -webkit-text-stroke: 1px var(--color-brand-mist);
+  -webkit-text-stroke: 1px var(--color-brand-ash);
   color: transparent;
 }
 

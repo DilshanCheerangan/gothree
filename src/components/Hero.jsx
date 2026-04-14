@@ -13,8 +13,8 @@ export default function Hero() {
   });
 
   // Parallax effects tied to scroll
-  const yLeft = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
-  const yRight = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
+  const yLeft = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
+  const yRight = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
   const opacityText = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   // Mouse parallax state
@@ -46,14 +46,14 @@ export default function Hero() {
     // Titanium Gyroscope (Engineered Rings)
     const rings = new THREE.Group();
     scene.add(rings);
-    
-    // Core dark metallic material
+
+    // Luxurious light metallic material
     const metalMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(0x111111),
-      roughness: 0.3,
-      metalness: 0.9,
+      color: new THREE.Color(0xdddddd), // Brighter base
+      roughness: 0.1,
+      metalness: 0.8,
       transparent: true,
-      opacity: 0 // For fade in
+      opacity: 0
     });
 
     // Outer primary ring
@@ -78,31 +78,39 @@ export default function Hero() {
     const ring3 = new THREE.Mesh(ring3Geo, metalMat);
     rings.add(ring3);
 
-    // A tiny intense core orb
-    const coreGeo = new THREE.SphereGeometry(0.2, 32, 32);
-    const coreMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(0xffffff),
-      emissive: new THREE.Color(0xb8935a),
-      emissiveIntensity: 2.0,
+    // Central Branded Logo Core (Icon only)
+    const logoTexture = new THREE.TextureLoader().load('/logoG.svg');
+    const iconGeo = new THREE.PlaneGeometry(0.6, 0.9); // Refined to be slightly larger
+    const logoMat = new THREE.MeshStandardMaterial({
+      map: logoTexture,
       transparent: true,
+      side: THREE.DoubleSide,
+      emissive: new THREE.Color(0x000000), // No glow for light mode
       opacity: 0
     });
-    const core = new THREE.Mesh(coreGeo, coreMat);
-    rings.add(core);
+    const logoMesh = new THREE.Mesh(iconGeo, iconMat);
+    logoMesh.position.set(0, 0, 0);
+    scene.add(logoMesh);
 
-    rings.scale.setScalar(0);
-    // Lighting
-    const keyLight = new THREE.DirectionalLight(0xc8a060, 2.0);
+    // Lighting - Maximum intensity for full coverage
+    const keyLight = new THREE.DirectionalLight(0xc8a060, 5.5);
     keyLight.position.set(3, 4, 3);
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0x2033aa, 0.8);
+    const rimLight = new THREE.DirectionalLight(0x4066ff, 3.5);
     rimLight.position.set(-4, -1, -2);
     scene.add(rimLight);
 
-    const pointLight = new THREE.PointLight(0xb08030, 3.5, 6);
-    pointLight.position.set(0, 2.5, 1.5);
+    const pointLight = new THREE.PointLight(0xffffff, 45.0, 80); // Even stronger
+    pointLight.position.set(0, 0, 1.2);
     scene.add(pointLight);
+
+    const fillLight = new THREE.PointLight(0xffffff, 12.0, 120);
+    fillLight.position.set(0, 0, -5);
+    scene.add(fillLight);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2); // Soft overall fill
+    scene.add(ambientLight);
 
     // Animation variables
     let animationFrameId;
@@ -128,7 +136,7 @@ export default function Hero() {
         rings.scale.setScalar(ep * 1.0);
         metalMat.opacity = ep * 1.0;
         accentMat.opacity = ep * 0.9;
-        coreMat.opacity = ep * 1.0;
+        logoMat.opacity = ep * 1.0;
       }
 
       // Safe fallback to prevent NaN crashes
@@ -141,27 +149,29 @@ export default function Hero() {
 
       ring1.rotation.x = elapsed * 0.2;
       ring1.rotation.y = elapsed * 0.1;
-      
+
       ring2.rotation.y = elapsed * -0.3;
       ring2.rotation.z = elapsed * 0.2;
-      
+
       ring3.rotation.x = elapsed * -0.15;
       ring3.rotation.z = elapsed * -0.25;
 
       rings.rotation.y = targetX * 0.4;
       rings.rotation.x = -targetY * 0.2;
 
+
       const breathScale = 1 + Math.sin(elapsed * 0.5) * 0.012;
       const finalScale = entryProgress < 1 ? easeOutExpo(entryProgress) * 1.0 : breathScale;
       rings.scale.setScalar(finalScale);
+      logoMesh.scale.setScalar(finalScale);
 
-      pointLight.position.x = Math.sin(elapsed * 0.4) * 2.5;
-      pointLight.position.z = Math.cos(elapsed * 0.4) * 2.5 + 1;
-      pointLight.intensity = 3.0 + Math.sin(elapsed * 0.9) * 0.6;
+      pointLight.position.set(0, 0, 1.0); // Slightly in front of logo for better bounce
+      pointLight.intensity = 45.0 + Math.sin(elapsed * 2.0) * 5.0;
 
       camera.position.x += (targetX * 0.3 - camera.position.x) * 0.04;
       camera.position.y += (targetY * 0.2 - camera.position.y) * 0.04;
       camera.lookAt(scene.position);
+
 
       renderer.render(scene, camera);
     };
@@ -182,10 +192,10 @@ export default function Hero() {
       ring1Geo.dispose();
       ring2Geo.dispose();
       ring3Geo.dispose();
-      coreGeo.dispose();
+      iconGeo.dispose();
       metalMat.dispose();
       accentMat.dispose();
-      coreMat.dispose();
+      iconMat.dispose();
     };
   }, []);
 
@@ -196,82 +206,106 @@ export default function Hero() {
   }, [mousePos]);
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden bg-brand-deep flex items-center justify-between pointer-events-none"
+      className="relative w-full h-screen overflow-hidden bg-brand-deep flex flex-col md:items-center justify-center md:justify-between pointer-events-none"
     >
-      <canvas ref={canvasRef} className="absolute inset-0 z-0 opacity-80 mix-blend-screen" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_50%_40%,#35261b_0%,#181008_45%,#000000_100%)] -z-10" />
+      {/* Background with Light Overlay */}
+      <div className="absolute inset-0 z-[-2] overflow-hidden">
+        <motion.img
+          src="/hero-bg.png"
+          alt="Technical background"
+          className="w-full h-full object-cover opacity-10 scale-110 grayscale brightness-125"
+          initial={{ opacity: 0, scale: 1.15 }}
+          animate={{ opacity: 0.1, scale: 1.05 }}
+          transition={{ duration: 4, ease: "easeOut" }}
+        />
+        <div className="absolute inset-0 bg-brand-deep/20" />
+      </div>
 
-      {/* LEFT CONTENT */}
-      <motion.div 
-        className="absolute left-[clamp(3rem,6vw,8rem)] top-[55%] -translate-y-1/2 w-[35vw] text-left z-10 pointer-events-auto cursor-default"
+      <canvas ref={canvasRef} className="absolute inset-0 z-0 opacity-100" />
+
+      {/* Enhanced Light Gradient Overlays */}
+      <div className="absolute inset-0 -z-10">
+        {/* Core Central Glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(184,147,90,0.15)_0%,rgba(248,246,242,1)_70%)]" />
+
+        {/* Secondary Vibrant Glows */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-brand-accent/5 rounded-full blur-[200px]" />
+      </div>
+
+      {/* LEFT CONTENT - Repositioned for Mobile */}
+      <motion.div
+        className="relative md:absolute md:left-[clamp(3rem,6vw,8rem)] md:top-[55%] md:-translate-y-1/2 w-full md:w-[35vw] px-8 md:px-0 text-left z-10 pointer-events-auto cursor-default mt-[-10vh] md:mt-0"
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
-        whileHover={{ scale: 1.02, x: 10, filter: "drop-shadow(0 0 20px rgba(255,255,255,0.15))" }}
+        whileHover={{ scale: 1.01, x: 5 }}
         transition={{ duration: 1.4, ease: "circOut" }}
         style={{ y: yLeft, opacity: opacityText }}
       >
-        <span className="text-brand-accent tracking-[0.3em] uppercase text-xs font-inter mb-6 block font-bold">
-          Elite Programs
-        </span>
-        <h1 className="display-font text-[clamp(3.5rem,6.5vw,7.5rem)] font-light text-white leading-[0.9] tracking-tight">
-          We build <br /> <em className="italic font-bold text-brand-cream">real skills.</em>
+        <div className="flex items-center gap-3 mb-4 md:mb-6">
+          <div className="h-[1px] w-8 bg-brand-accent" />
+          <span className="text-brand-accent tracking-[0.3em] uppercase text-[10px] md:text-xs font-inter font-bold">
+            Elite Programs
+          </span>
+        </div>
+        <h1 className="display-font text-[clamp(2.5rem,6.5vw,7.5rem)] font-light text-brand-white leading-[0.9] tracking-tight">
+          We build <br /> <em className="italic font-bold text-brand-accent">real skills.</em>
         </h1>
-        
-        <div className="mt-[6vh] max-w-[280px]">
-          <hr className="w-12 border-t-2 border-white/40 mb-6" />
-          <p className="font-inter text-sm text-brand-silver leading-relaxed font-light">
-            Hands-on technical internships designed around your ambition. 
-            Focus on what truly matters, and leave the noise behind.
+
+        <div className="mt-8 md:mt-[6vh] max-w-[280px]">
+          <p className="font-inter text-xs md:text-sm text-brand-silver leading-relaxed font-light">
+            Hands-on technical internships designed around your ambition.
+            Focus on what truly matters.
           </p>
         </div>
       </motion.div>
 
-      {/* RIGHT CONTENT */}
-      <motion.div 
-        className="absolute right-[clamp(3rem,6vw,8rem)] top-[55%] -translate-y-1/2 w-[35vw] text-right z-10 pointer-events-auto flex flex-col items-end justify-between h-[40vh] cursor-default"
+      {/* RIGHT CONTENT - Repositioned for Mobile */}
+      <motion.div
+        className="relative md:absolute md:right-[clamp(3rem,6vw,8rem)] md:top-[55%] md:-translate-y-1/2 w-full md:w-[35vw] px-8 md:px-0 text-left md:text-right z-10 pointer-events-auto flex flex-col md:items-end md:justify-between h-auto md:h-[40vh] cursor-default mt-8 md:mt-0"
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
-        whileHover={{ scale: 1.02, x: -10, filter: "drop-shadow(0 0 20px rgba(255,255,255,0.15))" }}
+        whileHover={{ scale: 1.01, x: -5 }}
         transition={{ duration: 1.4, ease: "circOut" }}
         style={{ y: yRight, opacity: opacityText }}
       >
-        <h2 className="display-font text-[clamp(3.5rem,6.5vw,7.5rem)] font-light text-white leading-[0.9] tracking-tight">
-          We create <br /> <span className="font-bold">impact.</span>
+        <h2 className="display-font text-[clamp(2.5rem,6.5vw,7.5rem)] font-light text-brand-white leading-[0.9] tracking-tight">
+          We create <br /> <span className="font-bold text-brand-white">impact.</span>
         </h2>
 
-        <div className="w-full max-w-[320px]">
-          <hr className="w-full border-t border-white/20 mb-6" />
-          <div className="flex justify-between items-center w-full font-inter text-[0.6rem] font-bold tracking-[0.15em] text-brand-silver uppercase">
-            <span className="flex items-center gap-2">
+        <div className="hidden md:block w-full max-w-[320px]">
+          <hr className="w-full border-t border-brand-ash/20 mb-6" />
+          <div className="flex justify-between items-center w-full font-inter text-[0.6rem] font-bold tracking-[0.15em] text-brand-mist uppercase">
+            <motion.span
+              className="flex items-center gap-2"
+              animate={{ y: [0, 5, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 9l6 6 6-6"/>
+                <path d="M6 9l6 6 6-6" />
               </svg>
               Scroll Down
-            </span>
+            </motion.span>
             <span>Begin</span>
           </div>
         </div>
       </motion.div>
 
       {/* EXPLORE CTA */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-auto"
+      <motion.div
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 pointer-events-auto w-full flex justify-center px-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 1, ease: "circOut" }}
       >
-        <a 
-          href="#programs" 
-          className="flex items-center gap-3 bg-white text-black px-6 py-3 rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_40px_rgba(255,255,255,0.2)]"
+        <a
+          href="#program-1"
+          className="group relative flex items-center gap-4 bg-brand-white text-brand-void px-8 py-4 rounded-full overflow-hidden transition-all duration-500 md:hover:pr-12 shadow-xl shadow-brand-accent/5"
         >
-          <span className="font-space text-sm font-bold tracking-tight">Explore Programs</span>
-          <div className="w-6 h-6 bg-black/10 rounded-full flex items-center justify-center">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rotate-45">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </div>
+          <div className="absolute inset-0 bg-brand-accent translate-y-[101%] md:group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
+          <span className="relative font-inter text-xs md:text-sm font-black tracking-widest uppercase z-10 group-hover:text-white transition-colors">Explore Programs</span>
+          <div className="relative w-2 h-2 bg-brand-void rounded-full z-10 md:group-hover:scale-[3] md:group-hover:bg-brand-white transition-all duration-500" />
         </a>
       </motion.div>
     </section>

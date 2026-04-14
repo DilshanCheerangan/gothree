@@ -7,10 +7,14 @@ export default function InternshipSection({ data, index, onClick }) {
   const isEven = index % 2 === 0;
 
   return (
-    <section className="relative w-full min-h-[90vh] flex flex-col justify-center items-center py-24 px-8 md:px-24 border-t border-brand-ash/20 hover:bg-brand-white/[0.02] transition-colors duration-700 group cursor-pointer overflow-hidden" onClick={onClick}>
+    <section
+      id={`program-${index + 1}`}
+      className="relative w-full min-h-[90vh] flex flex-col justify-center items-center py-24 px-8 md:px-24 border-t border-brand-ash/20 hover:bg-brand-accent/[0.03] transition-colors duration-700 group cursor-pointer overflow-hidden"
+      onClick={onClick}
+    >
 
-      {/* Decorative Index */}
-      <div className="absolute top-12 left-8 md:left-24 font-space text-[12rem] md:text-[24rem] font-bold text-brand-white/[0.02] -z-10 leading-none group-hover:text-brand-white/[0.04] transition-colors duration-700">
+      {/* Decorative Index - Subtly visible in light mode */}
+      <div className={`absolute top-12 font-space text-[12rem] md:text-[24rem] font-bold text-brand-ash/[0.08] -z-10 leading-none group-hover:text-brand-accent/[0.08] transition-colors duration-700 ${isEven ? 'left-8 md:left-24 text-left' : 'right-8 md:right-24 text-right'}`}>
         0{index + 1}
       </div>
 
@@ -60,21 +64,21 @@ export default function InternshipSection({ data, index, onClick }) {
           </motion.div>
         </div>
 
-        {/* Abstract Data Representation (Instead of Images) */}
+        {/* Abstract Data Representation (Enhanced for Light Theme) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ delay: 0.3, duration: 1.2, ease: "circOut" }}
-          className="flex-1 w-full aspect-square md:aspect-[4/3] glass-panel border border-brand-ash/30 rounded-full flex flex-col justify-center items-center p-12 relative"
+          className="flex-1 w-full aspect-square md:aspect-[4/3] glass-panel border border-brand-ash/50 rounded-full flex flex-col justify-center items-center p-12 relative shadow-lg shadow-brand-accent/5"
         >
           {/* Internal abstraction: pulsing rings & tags */}
-          <div className="absolute inset-4 rounded-full border border-brand-ash/20 border-dashed animate-[spin_60s_linear_infinite]" />
-          <div className="absolute inset-16 rounded-full border border-brand-accent/20 animate-[spin_40s_linear_infinite_reverse]" />
+          <div className="absolute inset-4 rounded-full border border-brand-ash/10 border-dashed animate-[spin_60s_linear_infinite]" />
+          <div className="absolute inset-16 rounded-full border border-brand-accent/10 animate-[spin_40s_linear_infinite_reverse]" />
 
           <div className="relative z-10 flex flex-col gap-4 text-center items-center">
             {data.highlights.map((highlight, i) => (
-              <span key={i} className="font-inter text-xs tracking-[0.1em] text-brand-silver bg-brand-charcoal/50 px-4 py-2 rounded-full border border-brand-ash/40 backdrop-blur-md">
+              <span key={i} className="font-inter text-xs tracking-[0.1em] text-brand-silver bg-brand-void px-4 py-2 rounded-full border border-brand-ash/30 shadow-sm backdrop-blur-md">
                 {highlight}
               </span>
             ))}

@@ -61,9 +61,9 @@ export default function Hero() {
     const ring1 = new THREE.Mesh(ring1Geo, metalMat);
     rings.add(ring1);
 
-    // Middle gold-accented ring
+    // Middle accent ring
     const accentMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(0xd4af37), // GOLD ACCENT
+      color: new THREE.Color(0x2e5bff), // ELECTRIC BLUE for Light Mode
       roughness: 0.1,
       metalness: 1.0,
       transparent: true,
@@ -93,12 +93,12 @@ export default function Hero() {
     logoMesh.position.set(0, 0, 0);
     scene.add(logoMesh);
 
-    // Lighting - Gold Theme
-    const keyLight = new THREE.DirectionalLight(0xd4af37, 5.5);
+    // Lighting - Blue for Light Mode, Gold for Dark Mode
+    const keyLight = new THREE.DirectionalLight(0x2e5bff, 5.5);
     keyLight.position.set(3, 4, 3);
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0xf4d03f, 3.5);
+    const rimLight = new THREE.DirectionalLight(0x00d4ff, 3.5);
     rimLight.position.set(-4, -1, -2);
     scene.add(rimLight);
 
@@ -106,12 +106,12 @@ export default function Hero() {
     pointLight.position.set(0, 0, 1.2);
     scene.add(pointLight);
 
-    // SIDE LIGHTS - Cinematic Gold Highlights
-    const leftLight = new THREE.PointLight(0xd4af37, 25.0, 100);
+    // SIDE LIGHTS - Cinematic Blue Highlights for Light Mode
+    const leftLight = new THREE.PointLight(0x2e5bff, 25.0, 100);
     leftLight.position.set(-8, 0, 2);
     scene.add(leftLight);
     
-    const rightLight = new THREE.PointLight(0xd4af37, 25.0, 100);
+    const rightLight = new THREE.PointLight(0x2e5bff, 25.0, 100);
     rightLight.position.set(8, 0, 2);
     scene.add(rightLight);
 
@@ -190,9 +190,9 @@ export default function Hero() {
       camera.lookAt(new THREE.Vector3(0, rings.position.y, 0));
 
       const isDark = document.documentElement.classList.contains('dark');
-      const accentColor = isDark ? 0xa67c3b : 0xd4af37; // Gold in dark, Gold in light
-      const keyLightColor = isDark ? 0xc8a060 : 0xd4af37;
-      const rimLightColor = isDark ? 0xffffff : 0xf4d03f;
+      const accentColor = isDark ? 0xa67c3b : 0x2e5bff; // Gold in dark, Blue in light
+      const keyLightColor = isDark ? 0xc8a060 : 0x2e5bff;
+      const rimLightColor = isDark ? 0xffffff : 0x00d4ff;
 
       accentMat.color.setHex(accentColor);
       keyLight.color.setHex(keyLightColor);
@@ -252,11 +252,11 @@ export default function Hero() {
 
       {/* Cinematic Side Lighting Overlays - High Contrast */}
       <div className="absolute inset-0 -z-10 bg-brand-deep overflow-hidden">
-        {/* Left Side Gold Glow */}
-        <div className="absolute top-0 -left-[15%] w-[60%] h-full bg-[radial-gradient(circle_at_left,rgba(212,175,55,0.22)_0%,transparent_65%)] blur-[100px]" />
+        {/* Left Side Electric Blue Glow */}
+        <div className="absolute top-0 -left-[15%] w-[60%] h-full bg-[radial-gradient(circle_at_left,rgba(46,91,255,0.22)_0%,transparent_65%)] blur-[100px]" />
         
-        {/* Right Side Gold Glow */}
-        <div className="absolute top-0 -right-[15%] w-[60%] h-full bg-[radial-gradient(circle_at_right,rgba(212,175,55,0.22)_0%,transparent_65%)] blur-[100px]" />
+        {/* Right Side Electric Blue Glow */}
+        <div className="absolute top-0 -right-[15%] w-[60%] h-full bg-[radial-gradient(circle_at_right,rgba(46,91,255,0.22)_0%,transparent_65%)] blur-[100px]" />
         
         {/* Core Central Refinement */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(248,250,255,1)_85%)] mix-blend-multiply opacity-50" />

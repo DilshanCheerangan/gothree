@@ -63,7 +63,7 @@ export default function Hero() {
 
     // Middle gold-accented ring
     const accentMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(0xd4af37), // Brighter gold
+      color: new THREE.Color(0x2e5bff), // ELECTRIC BLUE ACCENT
       roughness: 0.1,
       metalness: 1.0,
       transparent: true,
@@ -85,31 +85,41 @@ export default function Hero() {
       map: logoTexture,
       transparent: true,
       side: THREE.DoubleSide,
-      emissive: new THREE.Color(0x000000), // No glow for light mode
+      color: new THREE.Color(0x000000), // MAKE LOGO BLACK FOR LIGHT THEME
+      emissive: new THREE.Color(0x000000),
       opacity: 0
     });
-    const logoMesh = new THREE.Mesh(iconGeo, iconMat);
+    const logoMesh = new THREE.Mesh(iconGeo, logoMat);
     logoMesh.position.set(0, 0, 0);
     scene.add(logoMesh);
 
-    // Lighting - Maximum intensity for full coverage
-    const keyLight = new THREE.DirectionalLight(0xc8a060, 5.5);
+    // Lighting - Electric Blue Theme
+    const keyLight = new THREE.DirectionalLight(0x2e5bff, 5.5);
     keyLight.position.set(3, 4, 3);
     scene.add(keyLight);
 
-    const rimLight = new THREE.DirectionalLight(0x4066ff, 3.5);
+    const rimLight = new THREE.DirectionalLight(0x00d4ff, 3.5);
     rimLight.position.set(-4, -1, -2);
     scene.add(rimLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 45.0, 80); // Even stronger
+    const pointLight = new THREE.PointLight(0xffffff, 45.0, 80);
     pointLight.position.set(0, 0, 1.2);
     scene.add(pointLight);
+
+    // SIDE LIGHTS - Cinematic Blue Highlights
+    const leftLight = new THREE.PointLight(0x2e5bff, 25.0, 100);
+    leftLight.position.set(-8, 0, 2);
+    scene.add(leftLight);
+
+    const rightLight = new THREE.PointLight(0x2e5bff, 25.0, 100);
+    rightLight.position.set(8, 0, 2);
+    scene.add(rightLight);
 
     const fillLight = new THREE.PointLight(0xffffff, 12.0, 120);
     fillLight.position.set(0, 0, -5);
     scene.add(fillLight);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2); // Soft overall fill
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
     scene.add(ambientLight);
 
     // Animation variables
@@ -132,46 +142,61 @@ export default function Hero() {
         const t = Math.max(0, (now - entryStart) / 2600);
         entryProgress = Math.min(1, t);
         const ep = easeOutExpo(entryProgress);
-
+        
         rings.scale.setScalar(ep * 1.0);
         metalMat.opacity = ep * 1.0;
         accentMat.opacity = ep * 0.9;
         logoMat.opacity = ep * 1.0;
       }
 
-      // Safe fallback to prevent NaN crashes
       const currentMouseX = window.mousePosX || 0;
       const currentMouseY = window.mousePosY || 0;
-
-      // Smooth parallax targeting using JS closure
       targetX += (currentMouseX - targetX) * 0.04;
       targetY += (currentMouseY - targetY) * 0.04;
 
       ring1.rotation.x = elapsed * 0.2;
       ring1.rotation.y = elapsed * 0.1;
-
       ring2.rotation.y = elapsed * -0.3;
       ring2.rotation.z = elapsed * 0.2;
-
       ring3.rotation.x = elapsed * -0.15;
       ring3.rotation.z = elapsed * -0.25;
 
       rings.rotation.y = targetX * 0.4;
       rings.rotation.x = -targetY * 0.2;
 
-
       const breathScale = 1 + Math.sin(elapsed * 0.5) * 0.012;
-      const finalScale = entryProgress < 1 ? easeOutExpo(entryProgress) * 1.0 : breathScale;
+      const isMobile = window.innerWidth < 768;
+      const baseScale = isMobile ? 0.45 : 1.0; // Much smaller on mobile to avoid overlap
+      const ep = easeOutExpo(entryProgress);
+      const finalScale = (entryProgress < 1 ? ep : breathScale) * baseScale;
+      
       rings.scale.setScalar(finalScale);
       logoMesh.scale.setScalar(finalScale);
+      
+      // Shift 3D model slightly down on mobile to clear the top heading
+      if (isMobile) {
+        rings.position.y = -0.4;
+        logoMesh.position.y = -0.4;
+      } else {
+        rings.position.y = 0;
+        logoMesh.position.y = 0;
+      }
 
-      pointLight.position.set(0, 0, 1.0); // Slightly in front of logo for better bounce
+      pointLight.position.set(0, rings.position.y, 1.0);
       pointLight.intensity = 45.0 + Math.sin(elapsed * 2.0) * 5.0;
 
       camera.position.x += (targetX * 0.3 - camera.position.x) * 0.04;
       camera.position.y += (targetY * 0.2 - camera.position.y) * 0.04;
-      camera.lookAt(scene.position);
+      camera.lookAt(new THREE.Vector3(0, rings.position.y, 0));
 
+      const isDark = document.documentElement.classList.contains('dark');
+      const accentColor = isDark ? 0xa67c3b : 0x2e5bff; // Gold in dark, Blue in light
+      const keyLightColor = isDark ? 0xc8a060 : 0x2e5bff;
+      const rimLightColor = isDark ? 0xffffff : 0x00d4ff;
+
+      accentMat.color.setHex(accentColor);
+      keyLight.color.setHex(keyLightColor);
+      rimLight.color.setHex(rimLightColor);
 
       renderer.render(scene, camera);
     };
@@ -195,7 +220,7 @@ export default function Hero() {
       iconGeo.dispose();
       metalMat.dispose();
       accentMat.dispose();
-      iconMat.dispose();
+      logoMat.dispose();
     };
   }, []);
 
@@ -220,23 +245,26 @@ export default function Hero() {
           animate={{ opacity: 0.1, scale: 1.05 }}
           transition={{ duration: 4, ease: "easeOut" }}
         />
-        <div className="absolute inset-0 bg-brand-deep/20" />
+        <div className="absolute inset-0 bg-brand-deep/5" />
       </div>
 
       <canvas ref={canvasRef} className="absolute inset-0 z-0 opacity-100" />
 
-      {/* Enhanced Light Gradient Overlays */}
-      <div className="absolute inset-0 -z-10">
-        {/* Core Central Glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(184,147,90,0.15)_0%,rgba(248,246,242,1)_70%)]" />
-
-        {/* Secondary Vibrant Glows */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-brand-accent/5 rounded-full blur-[200px]" />
+      {/* Cinematic Side Lighting Overlays - High Contrast */}
+      <div className="absolute inset-0 -z-10 bg-brand-deep overflow-hidden">
+        {/* Left Side Electric Blue Glow */}
+        <div className="absolute top-0 -left-[15%] w-[60%] h-full bg-[radial-gradient(circle_at_left,rgba(46,91,255,0.22)_0%,transparent_65%)] blur-[100px]" />
+        
+        {/* Right Side Electric Blue Glow */}
+        <div className="absolute top-0 -right-[15%] w-[60%] h-full bg-[radial-gradient(circle_at_right,rgba(46,91,255,0.22)_0%,transparent_65%)] blur-[100px]" />
+        
+        {/* Core Central Refinement */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(248,250,255,1)_85%)] mix-blend-multiply opacity-50" />
       </div>
 
-      {/* LEFT CONTENT - Repositioned for Mobile */}
+      {/* LEFT CONTENT - Optimization for Mobile Text Clarity */}
       <motion.div
-        className="relative md:absolute md:left-[clamp(3rem,6vw,8rem)] md:top-[55%] md:-translate-y-1/2 w-full md:w-[35vw] px-8 md:px-0 text-left z-10 pointer-events-auto cursor-default mt-[-10vh] md:mt-0"
+        className="relative md:absolute md:left-[clamp(3rem,6vw,8rem)] md:top-[55%] md:-translate-y-1/2 w-full md:w-[35vw] px-8 md:px-0 text-left z-10 pointer-events-auto cursor-default mt-20 md:mt-0"
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
         whileHover={{ scale: 1.01, x: 5 }}

@@ -2,21 +2,42 @@
 
 @theme {
   --color-brand-void: #ffffff;
-  --color-brand-deep: #f8f6f2; /* Light creamy background */
-  --color-brand-charcoal: #f0ede8;
-  --color-brand-smoke: #e8e3db;
-  --color-brand-ash: #c8c2b8;
-  --color-brand-mist: #8a8780;
-  --color-brand-silver: #5c5a56;
-  --color-brand-warm: #2e2d2b;
-  --color-brand-cream: #1c1b19;
-  --color-brand-white: #0a0908; /* Dark text */
-  --color-brand-accent: #a67c3b; /* Slightly deeper gold for contrast on light */
+  --color-brand-deep: #f8faff; 
+  --color-brand-charcoal: #f0f4ff;
+  --color-brand-smoke: #e2e8f0;
+  --color-brand-ash: #64748b; /* Sharply visible grey lines */
+  --color-brand-mist: #475569; /* Darkened for subheaders */
+  --color-brand-silver: #334155; /* Darkened for metadata */
+  --color-brand-warm: #1e293b;
+  --color-brand-cream: #0f172a;
+  --color-brand-white: #020617; 
+  --color-brand-accent: #2e5bff; /* Electric Blue ONLY for Light Mode */
+
+  /* Dark Theme Overrides */
+  --color-brand-void-dark: #020617;
+  --color-brand-deep-dark: #0a0c10;
+  --color-brand-white-dark: #f8faff;
+  --color-brand-silver-dark: #94a3b8;
+}
+
+@layer base {
+  .dark {
+    --color-brand-void: #020617;
+    --color-brand-deep: #0a090b;
+    --color-brand-charcoal: #14171c;
+    --color-brand-smoke: #1e252e;
+    --color-brand-ash: #2e2d2b;
+    --color-brand-mist: #8a8780;
+    --color-brand-silver: #c8c2b8;
+    --color-brand-white: #ffffff;
+    --color-brand-accent: #a67c3b; /* RESTORED GOLD FOR DARK THEME */
+  }
 }
 
 :root {
   --background: var(--color-brand-deep);
   --foreground: var(--color-brand-white);
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
 body {
@@ -39,6 +60,11 @@ h1, h2, h3, h4, .display-font {
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+}
+
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .text-stroke {

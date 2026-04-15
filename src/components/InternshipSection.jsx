@@ -13,8 +13,8 @@ export default function InternshipSection({ data, index, onClick }) {
       onClick={onClick}
     >
 
-      {/* Decorative Index - Perfectly visible Electric Blue accent */}
-      <div className={`absolute top-12 font-space text-[12rem] md:text-[24rem] font-bold text-brand-accent/[0.08] -z-10 leading-none group-hover:text-brand-accent/[0.12] transition-colors duration-700 ${isEven ? 'left-8 md:left-24 text-left' : 'right-8 md:right-24 text-right'}`}>
+      {/* Decorative Index - Scaled for mobile */}
+      <div className={`absolute top-8 font-space text-[8rem] md:text-[24rem] font-bold text-brand-accent/[0.08] -z-10 leading-none group-hover:text-brand-accent/[0.12] transition-colors duration-700 ${isEven ? 'left-4 md:left-24 text-left' : 'right-4 md:right-24 text-right'}`}>
         0{index + 1}
       </div>
 
@@ -36,7 +36,7 @@ export default function InternshipSection({ data, index, onClick }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.1 }}
-            className="display-font text-5xl md:text-7xl font-light text-brand-white leading-[1.05]"
+            className="display-font text-4xl md:text-7xl font-light text-brand-white leading-[1.05]"
           >
             {data.title}
           </motion.h2>
@@ -70,7 +70,7 @@ export default function InternshipSection({ data, index, onClick }) {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ delay: 0.3, duration: 1.2, ease: "circOut" }}
-          className="flex-1 w-full aspect-square md:aspect-[4/3] glass-panel border border-brand-ash/50 rounded-full flex flex-col justify-center items-center p-12 relative shadow-lg shadow-brand-accent/5"
+          className="flex-1 w-full aspect-square md:aspect-[4/3] glass-panel border border-brand-ash/50 rounded-full flex flex-col justify-center items-center p-6 md:p-12 relative shadow-lg shadow-brand-accent/5"
         >
           {/* Internal abstraction: pulsing rings & tags */}
           <div className="absolute inset-4 rounded-full border border-brand-ash/10 border-dashed animate-[spin_60s_linear_infinite]" />

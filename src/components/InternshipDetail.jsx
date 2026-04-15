@@ -18,7 +18,7 @@ export default function InternshipDetail({ data, onClose }) {
         {/* Close Button */}
         <button 
           onClick={onClose}
-          className="absolute top-8 right-8 z-[1000] w-12 h-12 rounded-full bg-brand-void border border-brand-ash/30 shadow-sm flex items-center justify-center text-brand-silver hover:text-brand-accent hover:border-brand-accent transition-colors"
+          className="absolute top-4 right-4 md:top-8 md:right-8 z-[1000] w-10 h-10 md:w-12 md:h-12 rounded-full bg-brand-void border border-brand-ash/30 shadow-sm flex items-center justify-center text-brand-silver hover:text-brand-accent hover:border-brand-accent transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
@@ -30,7 +30,7 @@ export default function InternshipDetail({ data, onClose }) {
             <span className="font-inter text-brand-accent tracking-[0.3em] text-xs uppercase mb-4 block font-bold">
               {data.tagline}
             </span>
-            <h2 className="display-font text-5xl md:text-7xl font-light text-brand-white leading-[1]">
+            <h2 className="display-font text-4xl md:text-7xl font-light text-brand-white leading-[1]">
               {data.title}
             </h2>
             <div className="mt-8 md:mt-12 flex flex-col gap-6">
@@ -40,7 +40,7 @@ export default function InternshipDetail({ data, onClose }) {
               </div>
             </div>
             
-            <a href="#contact" onClick={onClose} className="mt-12 inline-flex items-center gap-4 bg-brand-white text-brand-deep px-8 py-4 font-space uppercase tracking-[0.2em] text-sm hover:bg-brand-accent transition-colors duration-300 shadow-xl shadow-brand-accent/10">
+            <a href="#contact" onClick={onClose} className="mt-8 md:mt-12 inline-flex items-center gap-4 bg-brand-white text-brand-deep px-6 py-3 md:px-8 md:py-4 font-space uppercase tracking-[0.2em] text-xs md:text-sm hover:bg-brand-accent transition-colors duration-300 shadow-xl shadow-brand-accent/10">
               Apply Now 
               <ArrowUpRight className="w-4 h-4" />
             </a>

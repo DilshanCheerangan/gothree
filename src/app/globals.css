@@ -2,16 +2,27 @@
 
 @theme {
   --color-brand-void: #ffffff;
-  --color-brand-deep: #f8faff; 
+  --color-brand-deep: #f8faff;
   --color-brand-charcoal: #f0f4ff;
   --color-brand-smoke: #e2e8f0;
-  --color-brand-ash: #64748b; /* Sharply visible grey lines */
-  --color-brand-mist: #475569; /* Darkened for subheaders */
-  --color-brand-silver: #334155; /* Darkened for metadata */
+  --color-brand-ash: #64748b;
+  /* Sharply visible grey lines */
+  --color-brand-mist: #475569;
+  /* Darkened for subheaders */
+  --color-brand-silver: #334155;
+  /* Darkened for metadata */
   --color-brand-warm: #1e293b;
   --color-brand-cream: #0f172a;
-  --color-brand-white: #020617; 
-  --color-brand-accent: #2e5bff; /* Electric Blue ONLY for Light Mode */
+  --color-brand-white: #000000;
+  --color-brand-accent: #2e5bff;
+  /* Electric Blue ONLY for Light Mode */
+
+  --color-final-bg: #e6f0ff;
+  /* Light blue for Final Step */
+  --glow-color: rgba(46, 91, 255, 0.22);
+  /* Electric Blue for Light Mode */
+  --refinement-glow: rgba(248, 250, 255, 1);
+  /* Light overlay for Hero */
 
   /* Dark Theme Overrides */
   --color-brand-void-dark: #020617;
@@ -22,22 +33,38 @@
 
 @layer base {
   .dark {
-    --color-brand-void: #020617;
-    --color-brand-deep: #0a090b;
-    --color-brand-charcoal: #14171c;
-    --color-brand-smoke: #1e252e;
+    --color-brand-void: #000000;
+    --color-brand-deep: #050505;
+    --color-brand-charcoal: #0a0a0a;
+    --color-brand-smoke: #111111;
     --color-brand-ash: #2e2d2b;
     --color-brand-mist: #8a8780;
     --color-brand-silver: #c8c2b8;
     --color-brand-white: #ffffff;
-    --color-brand-accent: #a67c3b; /* RESTORED GOLD FOR DARK THEME */
+    --color-brand-accent: #a67c3b;
+    --color-brand-cream: #080808;
+    --color-final-bg: #1f1810;
+    --glow-color: rgba(220, 180, 100, 0.15);
+    /* Soft Gold for Dark Mode */
+  }
+
+  /* Strict Scroll Lock for Mobile Menu */
+  body.overflow-hidden {
+    overflow: hidden !important;
+    position: fixed;
+    width: 100%;
   }
 }
 
 :root {
   --background: var(--color-brand-deep);
   --foreground: var(--color-brand-white);
+  --logo-filter: brightness(0) !important;
   transition: background 0.4s ease, color 0.4s ease;
+}
+
+.dark {
+  --logo-filter: brightness(0) invert(1) brightness(1.5) !important;
 }
 
 body {
@@ -47,7 +74,11 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, .display-font {
+h1,
+h2,
+h3,
+h4,
+.display-font {
   font-family: var(--font-space), sans-serif;
   letter-spacing: -0.02em;
 }
@@ -59,11 +90,11 @@ h1, h2, h3, h4, .display-font {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
 }
 
 .dark .glass-panel {
-  background: rgba(15, 23, 42, 0.4);
+  background: rgba(10, 10, 10, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -81,7 +112,10 @@ h1, h2, h3, h4, .display-font {
 ::-webkit-scrollbar {
   display: none;
 }
+
 html {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }

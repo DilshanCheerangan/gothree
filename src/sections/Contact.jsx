@@ -6,7 +6,7 @@ import RegistrationForm from "@/components/RegistrationForm";
 
 export default function Contact() {
   return (
-    <section id="contact" className="w-full min-h-screen flex flex-col justify-center items-center py-32 px-8 bg-yellow-100 dark:bg-amber-900 relative z-10">
+    <section id="contact" className="w-full min-h-screen flex flex-col justify-center items-center py-32 px-8 bg-[#2e5bff] dark:bg-amber-900 relative z-10">
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-accent/30 to-transparent" />
       
       <div className="max-w-3xl w-full text-center mb-16 px-4">

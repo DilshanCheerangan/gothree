@@ -78,7 +78,7 @@ export default function InternshipSection({ data, index, onClick }) {
 
           <div className="relative z-10 flex flex-col gap-4 text-center items-center">
             {data.highlights.map((highlight, i) => (
-              <span key={i} className="font-inter text-xs tracking-[0.1em] text-brand-silver bg-brand-void px-4 py-2 rounded-full border border-brand-ash/30 shadow-sm backdrop-blur-md font-bold">
+              <span key={i} className="font-inter text-xs tracking-[0.1em] text-white dark:text-amber-100 bg-blue-500 dark:bg-amber-700 px-4 py-2 rounded-full border border-blue-400 dark:border-amber-600 shadow-sm backdrop-blur-md font-bold">
                 {highlight}
               </span>
             ))}

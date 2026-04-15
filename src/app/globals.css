@@ -42,7 +42,7 @@
     --color-brand-silver: #c8c2b8;
     --color-brand-white: #ffffff;
     --color-brand-accent: #a67c3b;
-    --color-brand-cream: #080808;
+    --color-brand-cream: #f0e8d8;   /* warm off-white — was near-black, now visible */
     --color-final-bg: #1f1810;
     --glow-color: rgba(220, 180, 100, 0.15);
     /* Soft Gold for Dark Mode */

@@ -2,20 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Hero() {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  // Parallax effects tied to scroll
-  const yLeft = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
-  const yRight = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
-  const opacityText = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   // Mouse parallax state
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -238,10 +230,10 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-screen bg-brand-deep flex flex-col justify-between items-center py-16 md:py-24 px-8 md:px-16"
+      className="relative w-full h-screen bg-brand-deep overflow-hidden"
     >
-      {/* Background & Canvas */}
-      <div className="absolute inset-0 z-[-2] overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <motion.img
           src="/hero-bg.png"
           alt="Technical background"
@@ -250,79 +242,116 @@ export default function Hero() {
           animate={{ opacity: 0.1, scale: 1.05 }}
           transition={{ duration: 4, ease: "easeOut" }}
         />
-        <div className="absolute inset-0 bg-brand-deep/5" />
+        <div className="absolute inset-0 bg-brand-deep/10" />
       </div>
 
-      <canvas ref={canvasRef} className="absolute inset-0 z-0 opacity-100" />
-
-      {/* Lighting Overlays */}
-      <div className="absolute inset-0 -z-10 bg-brand-deep overflow-hidden">
-        <div 
-          className="absolute top-0 -left-[15%] w-[60%] h-full blur-[100px]" 
+      {/* Ambient glow overlays */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div
+          className="absolute top-0 -left-[15%] w-[55%] h-full blur-[120px]"
           style={{ background: "radial-gradient(circle at left, var(--glow-color) 0%, transparent 65%)" }}
         />
-        <div 
-          className="absolute top-0 -right-[15%] w-[60%] h-full blur-[100px]" 
+        <div
+          className="absolute top-0 -right-[15%] w-[55%] h-full blur-[120px]"
           style={{ background: "radial-gradient(circle at right, var(--glow-color) 0%, transparent 65%)" }}
         />
       </div>
 
-      {/* TOP CONTENT: "We build real skills" */}
+      {/* Three.js Canvas — the central focal element */}
+      <canvas ref={canvasRef} className="absolute inset-0 z-10 w-full h-full" />
+
+      {/* ── TOP-LEFT: Main headline ── */}
       <motion.div
-        className="relative z-10 w-full max-w-7xl flex flex-col items-start text-left order-1 mt-12 md:mt-0"
+        className="absolute top-[18%] left-8 md:left-14 z-20 max-w-[42vw]"
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.4, ease: "circOut" }}
-        style={{ opacity: opacityText }}
+        transition={{ duration: 1.2, ease: "circOut" }}
       >
-        <div className="flex items-center gap-3 mb-4 md:mb-6">
-          <div className="h-[1px] w-8 bg-brand-accent" />
-          <span className="text-brand-accent tracking-[0.3em] uppercase text-[10px] md:text-xs font-inter font-bold">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="h-[1px] w-6 bg-brand-accent" />
+          <span className="text-brand-accent tracking-[0.3em] uppercase text-[9px] font-inter font-bold">
             Elite Programs
           </span>
         </div>
-        <h1 className="display-font text-[clamp(2.5rem,6.2vw,7.5rem)] font-light text-brand-white leading-[0.9] tracking-tight">
-          We build <br /> <em className="italic font-bold text-brand-accent">real skills.</em>
+        <h1 className="display-font text-[clamp(2.2rem,5.5vw,7rem)] font-light text-brand-white leading-[0.88] tracking-tight">
+          We build <br />
+          <em className="italic font-bold text-brand-accent">real skills.</em>
         </h1>
-        <div className="mt-6 md:mt-8 max-w-[280px]">
-          <p className="font-inter text-xs md:text-sm text-brand-silver leading-relaxed font-light">
-            Hands-on technical internships designed around your ambition.
-          </p>
-        </div>
       </motion.div>
 
-      {/* CENTER: Gyroscope Reserved Space (Sandwich Gap) */}
-      <div className="flex-1 w-full order-2 min-h-[40vh] md:min-h-0 relative pointer-events-none" aria-hidden="true" />
-
-      {/* BOTTOM CONTENT: "We create impact" */}
+      {/* ── BOTTOM-LEFT: Tagline + description ── */}
       <motion.div
-        className="relative z-10 w-full max-w-7xl flex flex-col items-end text-right order-3 mb-10 md:mb-0"
+        className="absolute bottom-[10%] left-8 md:left-14 z-20 max-w-[260px]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.4, ease: "circOut" }}
-        style={{ opacity: opacityText }}
+        transition={{ duration: 1.2, delay: 0.2, ease: "circOut" }}
       >
-        <h2 className="display-font text-[clamp(2.5rem,6.2vw,7.5rem)] font-light text-brand-white leading-[0.9] tracking-tight mb-8 md:mb-12">
-          We create <br /> <span className="font-bold text-brand-white">impact.</span>
-        </h2>
+        <p className="display-font text-base md:text-lg text-brand-white font-light italic leading-snug mb-4">
+          Your gateway to<br />real-world impact
+        </p>
+        <p className="font-inter text-[11px] text-brand-silver leading-relaxed">
+          Hands-on technical internships designed around your ambition — so you can build the skills that truly matter.
+        </p>
+      </motion.div>
 
-        {/* EXPLORE CTA */}
-        <motion.div
-          className="relative pointer-events-auto"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.2, duration: 1 }}
+      {/* ── BOTTOM-CENTER: CTA Button ── */}
+      <motion.div
+        className="absolute bottom-[8%] left-1/2 -translate-x-1/2 z-20"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.0, duration: 0.8 }}
+      >
+        <Link
+          href="/internships"
+          className="group relative flex items-center gap-3 bg-brand-white text-brand-void px-7 py-3.5 rounded-full overflow-hidden transition-all duration-500 shadow-xl shadow-brand-accent/10"
         >
-          <a
-            href="#program-1"
-            className="group relative flex items-center gap-4 bg-brand-white text-brand-void px-8 py-4 rounded-full overflow-hidden transition-all duration-500 shadow-xl shadow-brand-accent/5"
-          >
-            <div className="absolute inset-0 bg-brand-accent translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
-            <span className="relative font-inter text-xs md:text-sm font-black tracking-widest uppercase z-10 group-hover:text-white transition-colors">Explore Programs</span>
-            <div className="relative w-2 h-2 bg-brand-void rounded-full z-10 group-hover:scale-[3] group-hover:bg-brand-white transition-all duration-500" />
-          </a>
-        </motion.div>
+          <div className="absolute inset-0 bg-brand-accent translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
+          <span className="relative font-inter text-[11px] font-black tracking-widest uppercase z-10 group-hover:text-white transition-colors whitespace-nowrap">
+            Explore Internships
+          </span>
+          <div className="relative w-6 h-6 rounded-full bg-brand-void/10 flex items-center justify-center z-10 group-hover:bg-white/20 transition-colors">
+            <svg className="w-3 h-3 text-brand-void group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </Link>
+      </motion.div>
+
+      {/* ── BOTTOM-RIGHT: Counter-headline ── */}
+      <motion.div
+        className="absolute bottom-[10%] right-8 md:right-14 z-20 text-right max-w-[42vw]"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.15, ease: "circOut" }}
+      >
+        <h2 className="display-font text-[clamp(2.2rem,5.5vw,7rem)] font-light text-brand-white leading-[0.88] tracking-tight">
+          We create <br />
+          <span className="font-bold text-brand-white">impact.</span>
+        </h2>
+      </motion.div>
+
+      {/* ── SCROLL DOWN indicator ── */}
+      <motion.div
+        className="absolute bottom-[3.5%] right-8 md:right-14 z-20 flex items-center gap-3"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+      >
+        <svg
+          className="w-4 h-4 text-brand-mist animate-bounce"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 4l-7 7-7-7" />
+        </svg>
+        <span className="font-inter text-[9px] tracking-[0.2em] uppercase text-brand-mist">
+          Scroll Down
+        </span>
+        <span className="font-inter text-[9px] tracking-[0.2em] uppercase text-brand-mist/50 ml-2">
+          To Start The Journey
+        </span>
       </motion.div>
     </section>
   );
 }
+

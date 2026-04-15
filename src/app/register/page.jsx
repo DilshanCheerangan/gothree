@@ -1,11 +1,11 @@
 "use client";
 
-import Hero from "@/components/Hero";
+import Contact from "@/sections/Contact";
 
-export default function Page() {
+export default function RegisterPage() {
   return (
     <main className="w-full min-h-screen bg-brand-deep flex relative flex-col">
-      <Hero />
+      <Contact />
     </main>
   );
 }

@@ -6,7 +6,7 @@ import RegistrationForm from "@/components/RegistrationForm";
 
 export default function Contact() {
   return (
-    <section id="contact" className="w-full min-h-screen flex flex-col justify-center items-center py-32 px-8 bg-[#2e5bff] dark:bg-amber-900 relative z-10">
+    <section id="contact" className="w-full min-h-screen flex flex-col justify-center items-center py-32 px-8 bg-brand-void relative z-10">
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-accent/30 to-transparent" />
       
       <div className="max-w-3xl w-full text-center mb-16 px-4">
@@ -24,10 +24,10 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="display-font text-5xl md:text-7xl font-light text-white dark:text-white leading-tight"
+          className="display-font text-5xl md:text-7xl font-light text-brand-white leading-tight"
         >
           Start Your <br className="md:hidden" />
-          <em className="italic font-bold text-white dark:text-amber-200 tracking-tight">Journey</em>
+          <em className="italic font-bold text-brand-cream tracking-tight">Journey</em>
         </motion.h2>
 
         <motion.p 
@@ -35,7 +35,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="font-inter text-white dark:text-amber-100 font-light mt-6 text-lg tracking-tight"
+          className="font-inter text-brand-silver font-light mt-6 text-lg tracking-tight"
         >
           Take the first step towards building real-world skills.
         </motion.p>
@@ -54,7 +54,7 @@ export default function Contact() {
             className="flex items-center gap-3 px-4 py-2 rounded-full bg-brand-accent/10 border border-brand-accent/20 hover:bg-brand-accent/20 transition-all group"
           >
             <span className="w-2 h-2 bg-brand-accent rounded-full animate-pulse" />
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white dark:text-white">Join the Community WhatsApp</span>
+            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-brand-white">Join the Community WhatsApp</span>
             <ExternalLink className="w-3 h-3 text-brand-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         </motion.div>

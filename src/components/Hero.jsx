@@ -61,9 +61,9 @@ export default function Hero() {
     const ring1 = new THREE.Mesh(ring1Geo, metalMat);
     rings.add(ring1);
 
-    // Middle accent ring
+    // Middle gold-accented ring
     const accentMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(0x2e5bff), // ELECTRIC BLUE for Light Mode
+      color: new THREE.Color(0x2e5bff), // ELECTRIC BLUE ACCENT
       roughness: 0.1,
       metalness: 1.0,
       transparent: true,
@@ -93,7 +93,7 @@ export default function Hero() {
     logoMesh.position.set(0, 0, 0);
     scene.add(logoMesh);
 
-    // Lighting - Blue for Light Mode, Gold for Dark Mode
+    // Lighting - Electric Blue Theme
     const keyLight = new THREE.DirectionalLight(0x2e5bff, 5.5);
     keyLight.position.set(3, 4, 3);
     scene.add(keyLight);
@@ -106,11 +106,11 @@ export default function Hero() {
     pointLight.position.set(0, 0, 1.2);
     scene.add(pointLight);
 
-    // SIDE LIGHTS - Cinematic Blue Highlights for Light Mode
+    // SIDE LIGHTS - Cinematic Blue Highlights
     const leftLight = new THREE.PointLight(0x2e5bff, 25.0, 100);
     leftLight.position.set(-8, 0, 2);
     scene.add(leftLight);
-    
+
     const rightLight = new THREE.PointLight(0x2e5bff, 25.0, 100);
     rightLight.position.set(8, 0, 2);
     scene.add(rightLight);

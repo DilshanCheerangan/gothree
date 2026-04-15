@@ -11,7 +11,7 @@
   --color-brand-warm: #1e293b;
   --color-brand-cream: #0f172a;
   --color-brand-white: #020617; 
-  --color-brand-accent: #2e5bff; /* Electric Blue for Light Mode */
+  --color-brand-accent: #2e5bff; /* Electric Blue ONLY for Light Mode */
 
   /* Dark Theme Overrides */
   --color-brand-void-dark: #020617;

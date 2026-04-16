@@ -1,13 +1,12 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import Link from "next/link";
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
+  initial: { opacity: 0, y: 32 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.85, ease: "circOut", delay },
+  viewport: { once: true, margin: "-10px" },
+  transition: { duration: 1, ease: [0.33, 1, 0.68, 1], delay },
 });
 
 const steps = [
@@ -44,19 +43,61 @@ const steps = [
 ];
 
 export default function JourneySection() {
-  return (
-    <section className="relative w-full py-28 md:py-36 px-6 md:px-16 bg-brand-charcoal overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-ash/50 to-transparent" />
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ["start end", "end start"],
+  });
 
-      <div className="max-w-6xl mx-auto">
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -120]);
+
+  return (
+    <section 
+      ref={container}
+      className="relative w-full py-28 md:py-48 px-6 md:px-16 bg-brand-charcoal overflow-hidden"
+    >
+      <div className="section-rule text-brand-ash absolute top-0 left-0" />
+
+      {/* Watermark */}
+      <motion.div
+        style={{ y: y1 }}
+        className="section-watermark absolute top-0 right-4 md:right-10 text-brand-white select-none"
+        aria-hidden="true"
+      >
+        02
+      </motion.div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
-          <motion.span {...fadeUp(0)} className="inline-block font-inter text-brand-accent tracking-[0.4em] text-[10px] uppercase font-bold mb-5">
+        <div className="text-center mb-20 md:mb-28">
+          <motion.span {...fadeUp(0)} className="section-eyebrow inline-block text-brand-accent mb-6">
             Your Journey
           </motion.span>
-          <motion.h2 {...fadeUp(0.1)} className="display-font text-[clamp(1.8rem,4vw,4.5rem)] font-light text-brand-white leading-tight tracking-tight mb-4">
-            From sign-up to <em className="italic font-bold text-brand-cream">job-ready.</em>
-          </motion.h2>
+          
+          <h2 className="display-font text-[clamp(2.5rem,6vw,7rem)] font-light text-brand-white leading-[0.92] tracking-tight">
+            <div className="overflow-hidden mb-2">
+              <motion.span
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, ease: [0.33, 1, 0.68, 1] }}
+                className="inline-block"
+              >
+                From sign-up to
+              </motion.span>
+            </div>
+            <div className="overflow-hidden">
+              <motion.span
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.15, ease: [0.33, 1, 0.68, 1] }}
+                className="inline-block italic font-bold text-brand-cream"
+              >
+                job-ready.
+              </motion.span>
+            </div>
+          </h2>
           <motion.p {...fadeUp(0.2)} className="font-inter text-brand-silver font-light text-base max-w-md mx-auto leading-relaxed">
             No fluff, no confusion. Here's exactly what the journey looks like.
           </motion.p>
@@ -68,10 +109,10 @@ export default function JourneySection() {
             <motion.div
               key={step.number}
               {...fadeUp(i * 0.12)}
-              className="group relative glass-panel border border-brand-ash/30 rounded-2xl p-8 md:p-10 hover:border-brand-accent/40 transition-all duration-500 hover:shadow-xl hover:shadow-brand-accent/5 flex flex-col gap-5"
+              className="group relative glass-panel border border-brand-ash/30 rounded-2xl p-9 md:p-11 hover:border-brand-accent/40 hover:-translate-y-1 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-accent/8 flex flex-col gap-6"
             >
-              {/* Step number watermark */}
-              <div className="absolute top-5 right-6 font-space text-5xl font-bold text-brand-accent/[0.08] group-hover:text-brand-accent/[0.15] transition-colors duration-500 select-none leading-none">
+              {/* Step number watermark inside card */}
+              <div className="absolute top-5 right-6 font-space text-5xl font-bold text-brand-accent/[0.12] group-hover:text-brand-accent/[0.2] transition-colors duration-500 select-none leading-none">
                 {step.number}
               </div>
 
@@ -80,22 +121,22 @@ export default function JourneySection() {
                 {step.icon}
               </div>
 
-              <h3 className="display-font text-lg font-bold text-brand-white group-hover:text-brand-accent transition-colors duration-300 leading-tight">
+              <h3 className="display-font text-xl md:text-2xl font-bold text-brand-white group-hover:text-brand-accent transition-colors duration-300 leading-tight">
                 {step.title}
               </h3>
               <p className="font-inter text-sm text-brand-silver font-light leading-relaxed flex-1">
                 {step.desc}
               </p>
-              <div className="h-[1px] w-8 group-hover:w-16 transition-all duration-500 bg-brand-accent/30" />
+              <div className="h-[1px] w-8 group-hover:w-20 transition-all duration-500 bg-brand-accent/40" />
             </motion.div>
           ))}
         </div>
 
-        {/* Connector CTA */}
+        {/* CTA */}
         <motion.div {...fadeUp(0.3)} className="flex justify-center">
           <Link
             href="/register"
-            className="group flex items-center gap-3 bg-brand-accent text-white px-8 py-4 rounded-full hover:shadow-xl hover:shadow-brand-accent/25 transition-all duration-300 font-inter text-xs font-black tracking-widest uppercase"
+            className="group flex items-center gap-3 bg-brand-accent text-white px-9 py-4 rounded-full hover:shadow-2xl hover:shadow-brand-accent/30 hover:-translate-y-0.5 transition-all duration-300 font-inter text-xs font-black tracking-widest uppercase"
           >
             <span>Start Your Journey</span>
             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

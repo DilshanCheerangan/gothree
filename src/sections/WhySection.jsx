@@ -69,7 +69,7 @@ const whyPoints = [
 
 export default function WhySection() {
   return (
-    <section className="relative w-full py-28 md:py-36 px-6 md:px-16 bg-brand-charcoal overflow-hidden">
+    <section className="relative w-full py-24 md:py-36 px-6 md:px-16 bg-brand-charcoal overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-ash/50 to-transparent" />
 
       <div className="max-w-6xl mx-auto">

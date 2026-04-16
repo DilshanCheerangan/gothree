@@ -119,3 +119,44 @@ html {
   scrollbar-width: none;
   /* Firefox */
 }
+
+/* Motion Utilities */
+.reveal-mask {
+  overflow: hidden;
+}
+
+.char-reveal {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ── Luxury section watermark numbers ── */
+.section-watermark {
+  @apply select-none pointer-events-none;
+  will-change: transform;
+  font-family: var(--font-space), sans-serif;
+  font-size: clamp(7rem, 18vw, 18rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px currentColor;
+  opacity: 0.04;
+}
+
+/* ── Consistent eyebrow label style ── */
+.section-eyebrow {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+}
+
+/* ── Premium horizontal divider ── */
+.section-rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, currentColor 30%, currentColor 70%, transparent);
+  opacity: 0.12;
+}

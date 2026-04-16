@@ -1,22 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import InternshipSection from "@/components/InternshipSection";
-import InternshipDetail from "@/components/InternshipDetail";
 import { internships } from "@/data/internships";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function ProgramsPage() {
-  const [activeInternship, setActiveInternship] = useState(null);
-
-  // Lock body scroll when detail is open
-  if (typeof window !== "undefined") {
-    if (activeInternship) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  }
+  const router = useRouter();
 
   return (
     <main className="w-full min-h-screen bg-brand-deep flex relative flex-col">
@@ -25,7 +15,7 @@ export default function ProgramsPage() {
         <motion.span
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="font-inter text-brand-accent tracking-[0.35em] text-[10px] md:text-xs uppercase mb-4 block font-bold"
+          className="section-eyebrow text-brand-accent mb-4 block"
         >
           Internship Programs
         </motion.span>
@@ -46,7 +36,7 @@ export default function ProgramsPage() {
           transition={{ delay: 0.2 }}
           className="font-inter text-brand-silver font-light mt-6 text-lg tracking-tight max-w-xl"
         >
-          Click any internship to explore its curriculum and outcomes.
+          Select a domain to explore curriculum, modules, and outcomes.
         </motion.p>
       </div>
 
@@ -57,16 +47,10 @@ export default function ProgramsPage() {
             key={program.id}
             data={program}
             index={index}
-            onClick={() => setActiveInternship(program)}
+            onClick={() => router.push(`/internships/${program.id}`)}
           />
         ))}
       </div>
-
-      {/* Detail Overlay */}
-      <InternshipDetail
-        data={activeInternship}
-        onClose={() => setActiveInternship(null)}
-      />
     </main>
   );
 }

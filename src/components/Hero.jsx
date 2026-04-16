@@ -261,23 +261,42 @@ export default function Hero() {
       <canvas ref={canvasRef} className="absolute inset-0 z-10 w-full h-full" />
 
       {/* ── TOP-LEFT: Main headline ── */}
-      <motion.div
-        className="absolute top-[18%] left-8 md:left-14 z-20 max-w-[42vw]"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: "circOut" }}
-      >
-        <div className="flex items-center gap-3 mb-4">
+      <div className="absolute top-[18%] md:top-[18%] left-[8%] md:left-14 z-20 max-w-[85%] md:max-w-[42vw]">
+        <motion.div
+           initial={{ opacity: 0, x: -20 }}
+           animate={{ opacity: 1, x: 0 }}
+           transition={{ duration: 1.2, ease: "circOut" }}
+           className="flex items-center gap-3 mb-4"
+        >
           <div className="h-[1px] w-6 bg-brand-accent" />
           <span className="text-brand-accent tracking-[0.3em] uppercase text-[9px] font-inter font-bold">
             Elite Programs
           </span>
-        </div>
-        <h1 className="display-font text-[clamp(2.2rem,5.5vw,7rem)] font-light text-brand-white leading-[0.88] tracking-tight">
-          We build <br />
-          <em className="italic font-bold text-brand-accent">real skills.</em>
+        </motion.div>
+        
+        <h1 className="display-font text-[clamp(2.5rem,10vw,7rem)] md:text-[clamp(2.2rem,5.5vw,7rem)] font-light text-brand-white leading-[0.85] md:leading-[0.88] tracking-tight">
+          <div className="overflow-hidden">
+            <motion.span
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.1, ease: [0.33, 1, 0.68, 1] }}
+              className="inline-block"
+            >
+              We build
+            </motion.span>
+          </div>
+          <div className="overflow-hidden">
+            <motion.span
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.25, ease: [0.33, 1, 0.68, 1] }}
+              className="inline-block italic font-bold text-brand-accent"
+            >
+              real skills.
+            </motion.span>
+          </div>
         </h1>
-      </motion.div>
+      </div>
 
       {/* ── BOTTOM-LEFT: Tagline + description ── */}
       <motion.div
@@ -300,10 +319,19 @@ export default function Hero() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1.0, duration: 0.8 }}
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = (e.clientX - rect.left - rect.width / 2) * 0.2;
+          const y = (e.clientY - rect.top - rect.height / 2) * 0.2;
+          e.currentTarget.style.transform = `translate(-50%, 0) translate(${x}px, ${y}px)`;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = `translate(-50%, 0)`;
+        }}
       >
         <Link
           href="/internships"
-          className="group relative flex items-center gap-3 bg-brand-white text-brand-void px-7 py-3.5 rounded-full overflow-hidden transition-all duration-500 shadow-xl shadow-brand-accent/10"
+          className="group relative flex items-center gap-3 bg-brand-white text-brand-void px-7 py-3.5 rounded-full overflow-hidden transition-all duration-300 ease-out shadow-xl shadow-brand-accent/10"
         >
           <div className="absolute inset-0 bg-brand-accent translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
           <span className="relative font-inter text-[11px] font-black tracking-widest uppercase z-10 group-hover:text-white transition-colors whitespace-nowrap">
@@ -318,17 +346,30 @@ export default function Hero() {
       </motion.div>
 
       {/* ── BOTTOM-RIGHT: Counter-headline ── */}
-      <motion.div
-        className="absolute bottom-[10%] right-8 md:right-14 z-20 text-right max-w-[42vw]"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.15, ease: "circOut" }}
-      >
-        <h2 className="display-font text-[clamp(2.2rem,5.5vw,7rem)] font-light text-brand-white leading-[0.88] tracking-tight">
-          We create <br />
-          <span className="font-bold text-brand-white">impact.</span>
+      <div className="absolute bottom-[20%] md:bottom-[10%] right-[8%] md:right-14 z-20 text-right max-w-[70%] md:max-w-[42vw]">
+        <h2 className="display-font text-[clamp(1.8rem,7vw,7rem)] md:text-[clamp(2.2rem,5.5vw,7rem)] font-light text-brand-white leading-[0.85] md:leading-[0.88] tracking-tight">
+          <div className="overflow-hidden">
+            <motion.span
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.15, ease: [0.33, 1, 0.68, 1] }}
+              className="inline-block"
+            >
+              We create
+            </motion.span>
+          </div>
+          <div className="overflow-hidden">
+            <motion.span
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.3, ease: [0.33, 1, 0.68, 1] }}
+              className="inline-block font-bold text-brand-white"
+            >
+              impact.
+            </motion.span>
+          </div>
         </h2>
-      </motion.div>
+      </div>
 
       {/* ── SCROLL DOWN indicator ── */}
       <motion.div

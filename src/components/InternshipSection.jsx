@@ -7,9 +7,10 @@ export default function InternshipSection({ data, index, onClick }) {
   const isEven = index % 2 === 0;
 
   return (
-    <section
+    <motion.section
       id={`program-${index + 1}`}
-      className="relative w-full min-h-[90vh] flex flex-col justify-center items-center py-24 px-8 md:px-24 border-t border-brand-ash/40 hover:bg-brand-accent/[0.03] transition-colors duration-700 group cursor-pointer overflow-hidden"
+      whileTap={{ scale: 0.995 }}
+      className="relative w-full min-h-[90vh] flex flex-col justify-center items-center py-24 px-8 md:px-24 border-t border-brand-ash/40 hover:bg-brand-accent/[0.03] transition-colors duration-700 group cursor-pointer overflow-hidden mobile-glow-pulse md:hover:bg-brand-accent/[0.03]"
       onClick={onClick}
     >
 

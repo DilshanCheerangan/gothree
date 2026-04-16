@@ -95,8 +95,11 @@ export default function DomainsSection() {
             return (
               <motion.div
                 key={program.id}
-                {...fadeUp(i * 0.08)}
-                className="group relative glass-panel border border-brand-ash/30 rounded-2xl p-7 md:p-10 hover:border-brand-accent/30 hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl flex flex-col gap-5 overflow-hidden"
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-10px" }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative glass-panel border border-brand-ash/30 rounded-2xl p-7 md:p-10 transition-all duration-500 hover:shadow-2xl flex flex-col gap-5 overflow-hidden mobile-glow-pulse md:hover:border-brand-accent/30 md:hover:-translate-y-2"
                 style={{ "--domain-color": cfg.accent }}
               >
                 {/* Hover glow */}

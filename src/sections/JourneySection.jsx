@@ -108,8 +108,11 @@ export default function JourneySection() {
           {steps.map((step, i) => (
             <motion.div
               key={step.number}
-              {...fadeUp(i * 0.12)}
-              className="group relative glass-panel border border-brand-ash/30 rounded-2xl p-9 md:p-11 hover:border-brand-accent/40 hover:-translate-y-1 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-accent/8 flex flex-col gap-6"
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10px" }}
+              whileTap={{ scale: 0.98 }}
+              className="group relative glass-panel border border-brand-ash/30 rounded-2xl p-7 md:p-11 transition-all duration-500 hover:shadow-2xl flex flex-col gap-6 mobile-glow-pulse md:hover:border-brand-accent/40 md:hover:-translate-y-1"
             >
               {/* Step number watermark inside card */}
               <div className="absolute top-5 right-6 font-space text-5xl font-bold text-brand-accent/[0.12] group-hover:text-brand-accent/[0.2] transition-colors duration-500 select-none leading-none">

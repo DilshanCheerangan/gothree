@@ -315,26 +315,18 @@ export default function Hero() {
 
       {/* ── BOTTOM-CENTER: CTA Button ── */}
       <motion.div
-        className="absolute bottom-[8%] left-1/2 -translate-x-1/2 z-20"
+        className="absolute bottom-[12%] md:bottom-[8%] left-1/2 -translate-x-1/2 z-20"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1.0, duration: 0.8 }}
-        onMouseMove={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          const x = (e.clientX - rect.left - rect.width / 2) * 0.2;
-          const y = (e.clientY - rect.top - rect.height / 2) * 0.2;
-          e.currentTarget.style.transform = `translate(-50%, 0) translate(${x}px, ${y}px)`;
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = `translate(-50%, 0)`;
-        }}
       >
         <Link
           href="/internships"
-          className="group relative flex items-center gap-3 bg-brand-white text-brand-void px-7 py-3.5 rounded-full overflow-hidden transition-all duration-300 ease-out shadow-xl shadow-brand-accent/10"
+          whileTap={{ scale: 0.96 }}
+          className="group relative flex items-center gap-3 bg-brand-white text-brand-void px-8 py-4 md:px-7 md:py-3.5 rounded-full overflow-hidden transition-all duration-300 ease-out shadow-2xl shadow-brand-accent/20 active:scale-95"
         >
           <div className="absolute inset-0 bg-brand-accent translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
-          <span className="relative font-inter text-[11px] font-black tracking-widest uppercase z-10 group-hover:text-white transition-colors whitespace-nowrap">
+          <span className="relative font-inter text-[13px] md:text-[11px] font-black tracking-widest uppercase z-10 group-hover:text-white transition-colors whitespace-nowrap">
             Explore Internships
           </span>
           <div className="relative w-6 h-6 rounded-full bg-brand-void/10 flex items-center justify-center z-10 group-hover:bg-white/20 transition-colors">

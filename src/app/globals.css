@@ -144,6 +144,23 @@ html {
   opacity: 0.04;
 }
 
+/* ── Ambient Breathing Animation for Mobile ── */
+@keyframes ambient-glow {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.1) saturate(1.1); }
+  100% { filter: brightness(1); }
+}
+
+.mobile-glow-pulse {
+  animation: ambient-glow 6s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .mobile-glow-pulse {
+    animation: none;
+  }
+}
+
 /* ── Consistent eyebrow label style ── */
 .section-eyebrow {
   font-family: var(--font-inter), sans-serif;

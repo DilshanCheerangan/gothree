@@ -100,8 +100,11 @@ export default function EthosSection() {
           {ethos.map((item, i) => (
             <motion.div
               key={item.label}
-              {...fadeUp(i * 0.12)}
-              className="group relative glass-panel border border-brand-ash/30 rounded-2xl p-7 md:p-11 hover:border-brand-accent/40 hover:-translate-y-1 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-accent/8 flex flex-col gap-6"
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10px" }}
+              whileTap={{ scale: 0.98 }}
+              className="group relative glass-panel border border-brand-ash/30 rounded-2xl p-7 md:p-11 transition-all duration-500 hover:shadow-2xl flex flex-col gap-6 mobile-glow-pulse md:hover:border-brand-accent/40 md:hover:-translate-y-1"
             >
               {/* Icon */}
               <div

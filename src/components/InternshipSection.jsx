@@ -90,6 +90,6 @@ export default function InternshipSection({ data, index, onClick }) {
 
       {/* Separator - Sharply visible grey in light mode */}
       <div className={`mt-16 md:mt-24 w-1/4 h-[1px] bg-brand-ash/40 ${isEven ? 'self-end' : 'self-start'}`} />
-    </section>
+    </motion.section>
   );
 }

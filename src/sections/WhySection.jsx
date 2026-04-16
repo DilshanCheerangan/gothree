@@ -69,17 +69,22 @@ const whyPoints = [
 
 export default function WhySection() {
   return (
-    <section className="relative w-full py-24 md:py-36 px-6 md:px-16 bg-brand-charcoal overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-ash/50 to-transparent" />
+    <section className="relative w-full py-24 md:py-36 px-6 md:px-16 bg-brand-airy transition-colors duration-500 overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-accent/20 to-transparent" />
 
-      <div className="max-w-6xl mx-auto">
+      {/* Background Watermark */}
+      <div className="absolute bottom-0 left-10 text-[15vw] font-black text-brand-accent/[0.03] select-none pointer-events-none leading-none -rotate-6">
+        RESULT
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <motion.span {...fadeUp(0)} className="inline-block font-inter text-brand-accent tracking-[0.4em] text-[10px] uppercase font-bold mb-5">
+          <motion.span {...fadeUp(0)} className="inline-block font-inter text-brand-accent tracking-[0.4em] text-[10px] uppercase font-black mb-5 opacity-80">
             Why GoThree
           </motion.span>
-          <motion.h2 {...fadeUp(0.1)} className="display-font text-[clamp(1.8rem,4vw,4.5rem)] font-light text-brand-white leading-tight tracking-tight">
-            We do internships <em className="italic font-bold text-brand-cream">differently.</em>
+          <motion.h2 {...fadeUp(0.1)} className="display-font text-[clamp(1.8rem,4vw,4.5rem)] font-light text-brand-accent leading-tight tracking-tight">
+            We do internships <em className="italic font-bold text-brand-accent underline decoration-brand-accent/30 decoration-thickness-2">differently.</em>
           </motion.h2>
         </div>
 
@@ -89,15 +94,15 @@ export default function WhySection() {
             <motion.div
               key={point.title}
               {...fadeUp(i * 0.07)}
-              className="group glass-panel border border-brand-ash/30 rounded-2xl p-7 md:p-8 hover:border-brand-accent/40 transition-all duration-500 hover:shadow-xl hover:shadow-brand-accent/5 flex flex-col gap-4"
+              className="group glass-panel border border-brand-accent/10 rounded-2xl p-7 md:p-8 hover:border-brand-accent/40 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-accent/5 flex flex-col gap-4 bg-white/40 dark:bg-brand-white/[0.03]"
             >
-              <div className="w-12 h-12 rounded-xl bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent/20 transition-colors duration-300">
+              <div className="w-12 h-12 rounded-xl bg-brand-accent/5 border border-brand-accent/10 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent/10 transition-colors duration-300">
                 {point.icon}
               </div>
-              <h3 className="display-font text-lg font-bold text-brand-white group-hover:text-brand-accent transition-colors duration-300 leading-tight">
+              <h3 className="display-font text-lg font-bold text-brand-accent group-hover:drop-shadow-[0_0_15px_rgba(46,91,255,0.2)] transition-all duration-300 leading-tight">
                 {point.title}
               </h3>
-              <p className="font-inter text-sm text-brand-silver font-light leading-relaxed flex-1">
+              <p className="font-inter text-sm text-brand-warm/60 dark:text-brand-white/60 font-light leading-relaxed flex-1">
                 {point.desc}
               </p>
             </motion.div>
@@ -107,24 +112,24 @@ export default function WhySection() {
         {/* Final CTA banner */}
         <motion.div
           {...fadeUp(0.2)}
-          className="relative glass-panel border border-brand-accent/20 rounded-2xl p-10 md:p-14 text-center overflow-hidden"
+          className="relative glass-panel border border-brand-accent/20 rounded-2xl p-10 md:p-14 text-center overflow-hidden bg-white/60 dark:bg-brand-white/[0.05]"
         >
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] rounded-full blur-[80px] opacity-20" style={{ background: "var(--glow-color)" }} />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] rounded-full blur-[80px] opacity-10 bg-brand-accent" />
           </div>
 
-          <p className="font-inter text-brand-mist text-xs tracking-[0.3em] uppercase font-bold mb-5">Ready to start?</p>
-          <h3 className="display-font text-[clamp(1.5rem,3.5vw,4rem)] font-light text-brand-white leading-tight tracking-tight mb-4">
-            Stop learning. <em className="italic font-bold text-brand-cream">Start building.</em>
+          <p className="font-inter text-brand-accent/60 text-xs tracking-[0.3em] uppercase font-black mb-5">Ready to start?</p>
+          <h3 className="display-font text-[clamp(1.5rem,3.5vw,4rem)] font-light text-brand-accent leading-tight tracking-tight mb-4">
+            Stop learning. <em className="italic font-bold text-brand-accent">Start building.</em>
           </h3>
-          <p className="font-inter text-brand-silver font-light text-base mb-10 max-w-md mx-auto leading-relaxed">
+          <p className="font-inter text-brand-warm/80 dark:text-brand-white/80 font-light text-base mb-10 max-w-md mx-auto leading-relaxed">
             Work on real systems. Ship real products. Get industry-ready in months — not years.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/register"
-              className="group flex items-center justify-center gap-3 bg-brand-accent text-white px-8 py-4 rounded-full hover:shadow-xl hover:shadow-brand-accent/30 transition-all duration-300 font-inter text-xs font-black tracking-widest uppercase"
+              className="group flex items-center justify-center gap-3 bg-brand-accent text-white px-8 py-4 rounded-full hover:shadow-xl hover:shadow-brand-accent/20 transition-all duration-300 font-inter text-xs font-black tracking-widest uppercase"
             >
               Apply Now
               <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -133,7 +138,7 @@ export default function WhySection() {
             </Link>
             <Link
               href="/contact"
-              className="flex items-center justify-center gap-3 bg-transparent border border-brand-ash/50 text-brand-white px-8 py-4 rounded-full hover:border-brand-accent/60 hover:text-brand-accent transition-all duration-300 font-inter text-xs font-bold tracking-widest uppercase"
+              className="flex items-center justify-center gap-3 bg-transparent border border-brand-accent/30 text-brand-accent px-8 py-4 rounded-full hover:bg-brand-accent hover:text-white transition-all duration-300 font-inter text-xs font-black tracking-widest uppercase"
             >
               Talk to Us
             </Link>

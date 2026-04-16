@@ -47,6 +47,7 @@ export default function Navbar() {
     { label: "Home", href: "/" },
     { label: "Internships", href: "/internships" },
     { label: "Courses", href: "/courses" },
+    { label: "Training", href: "/training" },
     { label: "About", href: "/about" },
   ];
 

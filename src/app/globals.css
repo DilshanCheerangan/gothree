@@ -18,7 +18,8 @@
   /* Electric Blue ONLY for Light Mode */
 
   --color-final-bg: #e6f0ff;
-  /* Light blue for Final Step */
+  --color-brand-airy: #f1f7ff;
+  /* Light blue for Sections */
   --glow-color: rgba(46, 91, 255, 0.22);
   /* Electric Blue for Light Mode */
   --refinement-glow: rgba(248, 250, 255, 1);
@@ -44,6 +45,7 @@
     --color-brand-accent: #a67c3b;
     --color-brand-cream: #f0e8d8;   /* warm off-white — was near-black, now visible */
     --color-final-bg: #1f1810;
+    --color-brand-airy: var(--color-brand-deep);
     --glow-color: rgba(220, 180, 100, 0.15);
     /* Soft Gold for Dark Mode */
   }

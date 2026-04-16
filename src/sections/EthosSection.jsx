@@ -1,31 +1,13 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+"use client";
+
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
+import { cn } from "@/lib/utils";
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 32 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-10px" },
-  transition: { duration: 1, ease: [0.33, 1, 0.68, 1], delay },
-});
-
-const ethos = [
-  {
-    label: "No lectures.",
-    strikethrough: true,
-    desc: "Every session replaces a lecture with a real project brief. You don't watch — you build.",
-  },
-  {
-    label: "No passive learning.",
-    strikethrough: true,
-    desc: "No video playlists. No MCQ quizzes. Every session produces a deliverable your mentor reviews.",
-  },
-  {
-    label: "Only building.",
-    strikethrough: false,
-    desc: "Real project briefs. Real team collaboration. Real feedback. A real portfolio by the end.",
-  },
-];
-
+/**
+ * EthosSection - The Decision Split Edition
+ * A luxury-grade comparison between traditional education and the GoThree method.
+ */
 export default function EthosSection() {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -33,118 +15,81 @@ export default function EthosSection() {
     offset: ["start end", "end start"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  // Smooth Drift: The text floats up the screen as you scroll
+  const driftY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+  const smoothDrift = useSpring(driftY, { stiffness: 100, damping: 30 });
 
   return (
     <section 
       ref={container}
-      className="relative w-full py-28 md:py-48 px-6 md:px-16 bg-brand-charcoal overflow-hidden"
+      className="relative w-full py-32 md:py-64 px-6 md:px-16 bg-brand-airy transition-colors duration-500 overflow-hidden"
     >
-      {/* Top rule */}
-      <div className="section-rule text-brand-ash absolute top-0 left-0" />
+      <div className="section-rule text-brand-ash/30 absolute top-0 left-0" />
 
-      {/* Watermark */}
+      {/* Background Watermark - High-fidelity GOTHREE branding */}
       <motion.div
-        style={{ y: y1 }}
-        className="section-watermark absolute top-0 right-4 md:right-10 text-brand-white select-none"
-        aria-hidden="true"
+        style={{ y: useTransform(scrollYProgress, [0, 1], [0, -150]) }}
+        className="absolute top-0 left-0 w-full text-center text-[16vw] font-black text-brand-accent/[0.03] select-none pointer-events-none leading-none tracking-[-0.05em]"
       >
-        01
+        GOTHREE
       </motion.div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-20 md:mb-28">
-          <motion.span
-            {...fadeUp(0)}
-            className="section-eyebrow inline-block text-brand-accent mb-6"
-          >
-            Real Talk
-          </motion.span>
-
-          <h2 className="display-font text-[clamp(2.5rem,6vw,7rem)] font-light text-brand-white leading-[0.92] tracking-tight">
-            <div className="overflow-hidden">
-              <motion.span
-                initial={{ y: "100%" }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, ease: [0.33, 1, 0.68, 1] }}
-                className="inline-block"
-              >
-                This isn't what
-              </motion.span>
-            </div>
-            <div className="overflow-hidden">
-              <motion.span
-                initial={{ y: "100%" }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.15, ease: [0.33, 1, 0.68, 1] }}
-                className="inline-block italic font-bold text-brand-cream"
-              >
-                you think.
-              </motion.span>
-            </div>
-          </h2>
-
-          <motion.p
-            {...fadeUp(0.2)}
-            className="font-inter text-brand-silver font-light text-base md:text-lg mt-7 max-w-xl mx-auto leading-relaxed"
-          >
-            We don't do lectures. We don't do passive learning. We only do building.
-          </motion.p>
-        </div>
-
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {ethos.map((item, i) => (
-            <motion.div
-              key={item.label}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10px" }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative glass-panel border border-brand-ash/30 rounded-2xl p-7 md:p-11 transition-all duration-500 hover:shadow-2xl flex flex-col gap-6 mobile-glow-pulse md:hover:border-brand-accent/40 md:hover:-translate-y-1"
-            >
-              {/* Icon */}
-              <div
-                className={`w-11 h-11 rounded-xl flex items-center justify-center ${
-                  item.strikethrough
-                    ? "bg-red-500/10 border border-red-500/20"
-                    : "bg-brand-accent/10 border border-brand-accent/20"
-                }`}
-              >
-                {item.strikethrough ? (
-                  <svg className="w-4 h-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                ) : (
-                  <svg className="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                  </svg>
-                )}
-              </div>
-
-              {/* Label */}
-              <h3
-                className={`display-font text-xl md:text-2xl font-bold leading-tight ${
-                  item.strikethrough
-                    ? "text-red-400 line-through decoration-2"
-                    : "text-brand-accent"
-                }`}
-              >
-                {item.label}
+      <div className="max-w-7xl mx-auto relative z-10">
+        <motion.div 
+          style={{ y: smoothDrift }}
+          className="flex flex-col lg:flex-row items-center justify-between gap-16 md:gap-32"
+        >
+          {/* Left Column: The Legacy (Adaptive Grey) */}
+          <div className="w-full lg:w-1/2 space-y-12 text-left opacity-60">
+            <div className="space-y-4 text-brand-ash dark:text-brand-silver">
+              <span className="font-space text-[10px] tracking-[0.4em] uppercase block mb-2 font-black">Legacy Model</span>
+              <h3 className="display-font text-3xl md:text-5xl font-light italic line-through decoration-brand-ash/30 dark:decoration-brand-silver/30">
+                Passive Lectures.
               </h3>
+              <p className="font-inter text-sm md:text-base font-light max-w-sm leading-relaxed text-brand-ash dark:text-brand-silver/70">
+                Standard education relies on watching content, not creating it.
+              </p>
+            </div>
+            
+            <div className="space-y-4 text-brand-ash dark:text-brand-silver">
+              <h3 className="display-font text-3xl md:text-5xl font-light italic line-through decoration-brand-ash/30 dark:decoration-brand-silver/30">
+                MCQ Assessments.
+              </h3>
+              <p className="font-inter text-sm md:text-base font-light max-w-sm leading-relaxed text-brand-ash dark:text-brand-silver/70">
+                Measuring knowledge through quizzes rather than outcomes.
+              </p>
+            </div>
+          </div>
 
-              {/* Desc */}
-              <p className="font-inter text-sm text-brand-silver font-light leading-relaxed flex-1">
-                {item.desc}
+          {/* Center Connector (Vertical Line) */}
+          <div className="hidden lg:block w-[1px] h-64 bg-brand-ash/20 self-center" />
+
+          {/* Right Column: The GOTHREE (Vibrant Blue) */}
+          <div className="w-full lg:w-1/2 relative">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1] }}
+              className="space-y-8"
+            >
+              <span className="font-space text-[10px] tracking-[0.4em] uppercase text-brand-accent block mb-2 font-black animate-pulse">GOTHREE</span>
+              <h2 className="display-font text-5xl md:text-8xl lg:text-9xl font-bold text-brand-accent leading-[0.9] tracking-tighter">
+                ONLY <br />
+                <span className="text-brand-accent drop-shadow-[0_0_50px_rgba(46,91,255,0.2)]">BUILDING.</span>
+              </h2>
+              
+              <p className="font-inter text-lg md:text-xl text-brand-warm font-light leading-relaxed max-w-md">
+                We believe in outcomes over watching. Every session results in a piece of your professional portfolio. No exceptions.
               </p>
 
-              <div className="h-[1px] w-8 group-hover:w-20 transition-all duration-500 bg-brand-accent/40" />
+              <div className="flex items-center gap-6 pt-6">
+                <div className="h-[1px] w-20 bg-brand-accent/30" />
+                <span className="font-space text-xs tracking-widest text-brand-accent font-black uppercase">Real Briefs. Real Mentorship.</span>
+              </div>
             </motion.div>
-          ))}
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

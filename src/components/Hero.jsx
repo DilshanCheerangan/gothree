@@ -242,19 +242,6 @@ export default function Hero() {
           animate={{ opacity: 0.1, scale: 1.05 }}
           transition={{ duration: 4, ease: "easeOut" }}
         />
-        <div className="absolute inset-0 bg-brand-deep/10" />
-      </div>
-
-      {/* Ambient glow overlays */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div
-          className="absolute top-0 -left-[15%] w-[55%] h-full blur-[120px]"
-          style={{ background: "radial-gradient(circle at left, var(--glow-color) 0%, transparent 65%)" }}
-        />
-        <div
-          className="absolute top-0 -right-[15%] w-[55%] h-full blur-[120px]"
-          style={{ background: "radial-gradient(circle at right, var(--glow-color) 0%, transparent 65%)" }}
-        />
       </div>
 
       {/* Three.js Canvas — the central focal element */}
@@ -322,7 +309,6 @@ export default function Hero() {
       >
         <Link
           href="/internships"
-          whileTap={{ scale: 0.96 }}
           className="group relative flex items-center gap-3 bg-brand-white text-brand-void px-8 py-4 md:px-7 md:py-3.5 rounded-full overflow-hidden transition-all duration-300 ease-out shadow-2xl shadow-brand-accent/20 active:scale-95"
         >
           <div className="absolute inset-0 bg-brand-accent translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />

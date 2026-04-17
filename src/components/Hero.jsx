@@ -24,8 +24,18 @@ export default function Hero() {
 
     let renderer;
     try {
+      // 1. Pre-flight check: Ensure the canvas and WebGL context are reachable
+      const gl = canvasRef.current.getContext("webgl2") || canvasRef.current.getContext("webgl");
+      if (!gl) {
+        console.warn("Hero Section: WebGL context creation failed.");
+        setIsWebGLAvailable(false);
+        return;
+      }
+
+      // 2. Initialize Renderer
       renderer = new THREE.WebGLRenderer({
         canvas: canvasRef.current,
+        context: gl, // Use the already acquired context
         antialias: true,
         alpha: true,
         powerPreference: "high-performance",
@@ -35,7 +45,7 @@ export default function Hero() {
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.1;
     } catch (e) {
-      console.error("Hero Section: WebGL initialization failed or blocked.", e);
+      console.error("Hero Section: WebGL initialization failed.", e);
       setIsWebGLAvailable(false);
       return;
     }
@@ -86,7 +96,7 @@ export default function Hero() {
       map: logoTexture,
       transparent: true,
       side: THREE.DoubleSide,
-      color: new THREE.Color(0x2e5bff), 
+      color: new THREE.Color(0x2e5bff),
       opacity: 0
     });
     const logoMesh = new THREE.Mesh(iconGeo, logoMat);
@@ -124,7 +134,7 @@ export default function Hero() {
 
     // Animation variables
     let animationFrameId;
-    const clock = new THREE.Clock();
+    const timer = new THREE.Timer();
     let entryProgress = 0;
     const entryStart = performance.now() + 500;
     let targetX = 0;
@@ -134,7 +144,8 @@ export default function Hero() {
 
     const render = () => {
       animationFrameId = requestAnimationFrame(render);
-      const elapsed = clock.getElapsedTime();
+      timer.update();
+      const elapsed = timer.getElapsed();
       const now = performance.now();
 
       // Entry animation
@@ -142,7 +153,7 @@ export default function Hero() {
         const t = Math.max(0, (now - entryStart) / 2600);
         entryProgress = Math.min(1, t);
         const ep = easeOutExpo(entryProgress);
-        
+
         rings.scale.setScalar(ep * 1.0);
         metalMat.opacity = ep * 1.0;
         accentMat.opacity = ep * 0.9;
@@ -167,13 +178,13 @@ export default function Hero() {
       const breathScale = 1 + Math.sin(elapsed * 0.5) * 0.012;
       const isMobile = window.innerWidth < 768;
       // Further reduced scale for extreme mobile screens
-      const baseScale = isMobile ? (window.innerWidth < 400 ? 0.3 : 0.45) : 1.0; 
+      const baseScale = isMobile ? (window.innerWidth < 400 ? 0.3 : 0.45) : 1.0;
       const ep = easeOutExpo(entryProgress);
       const finalScale = (entryProgress < 1 ? ep : breathScale) * baseScale;
-      
+
       rings.scale.setScalar(finalScale);
       logoMesh.scale.setScalar(finalScale);
-      
+
       // Shift 3D model much further down on mobile
       // Centralize 3D model on all devices but maintain scale offsets
       rings.position.y = 0;
@@ -186,16 +197,14 @@ export default function Hero() {
       camera.position.y += (targetY * 0.2 - camera.position.y) * 0.04;
       camera.lookAt(new THREE.Vector3(0, rings.position.y, 0));
 
-      const isDark = document.documentElement.classList.contains('dark');
-      const accentColor = isDark ? 0xa67c3b : 0x2e5bff; // Gold in dark, Blue in light
-      const keyLightColor = isDark ? 0xc8a060 : 0x2e5bff;
-      const rimLightColor = isDark ? 0xffffff : 0x00d4ff;
-      const sideLightColor = isDark ? 0xe6c79a : 0x2e5bff;
-      
-      // REQUEST: logo electric blue in light mode, white in dark mode
-      const logoColor = isDark ? 0xffffff : 0x2e5bff; 
-      const emissiveIntensity = isDark ? 0.2 : 1.2;
-      const emissiveColor = isDark ? 0xffffff : 0x2e5bff;
+      const accentColor = 0xa67c3b; // Gold
+      const keyLightColor = 0xc8a060;
+      const rimLightColor = 0xffffff;
+      const sideLightColor = 0xe6c79a;
+
+      const logoColor = 0xffffff;
+      const emissiveIntensity = 0.2;
+      const emissiveColor = 0xffffff;
 
       accentMat.color.setHex(accentColor);
       logoMat.color.setHex(logoColor); // Always pure Electric Blue or White
@@ -219,15 +228,12 @@ export default function Hero() {
     return () => {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
-      
+
       if (renderer) {
-        // Force fully release context if extension is available
-        const extension = renderer.getContext().getExtension('WEBGL_lose_context');
-        if (extension) extension.loseContext();
-        
         renderer.dispose();
+        renderer.renderLists.dispose();
       }
-      
+
       ring1Geo.dispose();
       ring2Geo.dispose();
       ring3Geo.dispose();
@@ -302,28 +308,28 @@ export default function Hero() {
         <canvas ref={canvasRef} className="absolute inset-0 z-10 w-full h-full" />
       ) : (
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-           {/* Fallback branded visuals when WebGL is blocked */}
-           <div className="relative w-72 h-72 opacity-20 bg-brand-accent/10 rounded-full blur-3xl animate-pulse" />
+          {/* Fallback branded visuals when WebGL is blocked */}
+          <div className="relative w-72 h-72 opacity-20 bg-brand-accent/10 rounded-full blur-3xl animate-pulse" />
         </div>
       )}
 
       {/* ── TOP-LEFT: Main headline ── */}
-      <motion.div 
+      <motion.div
         style={{ y: yHeadline }}
         className="absolute top-[18%] md:top-[18%] left-[8%] md:left-14 z-20 max-w-[85%] md:max-w-[42vw]"
       >
         <motion.div
-           initial={{ opacity: 0, x: -20 }}
-           animate={{ opacity: 1, x: 0 }}
-           transition={{ duration: 1.2, ease: "circOut" }}
-           className="flex items-center gap-3 mb-4"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, ease: "circOut" }}
+          className="flex items-center gap-3 mb-4"
         >
           <div className="h-[1px] w-6 bg-brand-accent" />
           <span className="text-brand-accent tracking-[0.3em] uppercase text-[9px] font-inter font-bold">
             Elite Programs
           </span>
         </motion.div>
-        
+
         <h1 className="display-font text-[clamp(2.5rem,10vw,7rem)] md:text-[clamp(2.2rem,5.5vw,7rem)] font-light text-brand-white leading-[0.85] md:leading-[0.88] tracking-tight">
           <div className="overflow-hidden">
             <motion.span
@@ -375,7 +381,7 @@ export default function Hero() {
       </motion.div>
 
       {/* ── BOTTOM-RIGHT: Counter-headline ── */}
-      <motion.div 
+      <motion.div
         style={{ y: yImpact }}
         className="absolute bottom-[20%] md:bottom-[10%] right-[8%] md:right-14 z-20 text-right max-w-[70%] md:max-w-[42vw]"
       >

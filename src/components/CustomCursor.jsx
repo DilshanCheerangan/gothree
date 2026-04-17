@@ -41,8 +41,8 @@ export default function CustomCursor() {
           x: mousePosition.x - 4, // centering offset
           y: mousePosition.y - 4,
           scale: isHovering ? 5 : 1,
-          backgroundColor: isHovering ? "transparent" : "#b8935a",
-          border: isHovering ? "1px solid #b8935a" : "none"
+          backgroundColor: isHovering ? "transparent" : "#a67c3b",
+          border: isHovering ? "1px solid #a67c3b" : "none"
         }}
         transition={{ type: "tween", ease: "backOut", duration: 0.15 }}
       />

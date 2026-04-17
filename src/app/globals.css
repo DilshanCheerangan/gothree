@@ -1,55 +1,29 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-void: #ffffff;
-  --color-brand-deep: #f8faff;
-  --color-brand-charcoal: #f0f4ff;
-  --color-brand-smoke: #e2e8f0;
-  --color-brand-ash: #64748b;
-  /* Sharply visible grey lines */
-  --color-brand-mist: #475569;
-  /* Darkened for subheaders */
-  --color-brand-silver: #334155;
-  /* Darkened for metadata */
-  --color-brand-warm: #1e293b;
-  --color-brand-cream: #0f172a;
-  --color-brand-white: #000000;
-  --color-brand-accent: #2e5bff;
-  /* Electric Blue ONLY for Light Mode */
+  --color-brand-void: #000000;
+  --color-brand-deep: #050505;
+  --color-brand-charcoal: #0a0a0a;
+  --color-brand-smoke: #111111;
+  --color-brand-ash: #2e2d2b;
+  --color-brand-mist: #8a8780;
+  --color-brand-silver: #c8c2b8;
+  --color-brand-white: #ffffff;
+  --color-brand-accent: #a67c3b;
+  --color-brand-cream: #f0e8d8;
+  --color-final-bg: #1f1810;
+  --color-brand-airy: var(--color-brand-deep);
+  --glow-color: rgba(220, 180, 100, 0.15);
+  --refinement-glow: rgba(10, 10, 10, 1);
 
-  --color-final-bg: #e6f0ff;
-  --color-brand-airy: #f1f7ff;
-  /* Light blue for Sections */
-  --glow-color: rgba(46, 91, 255, 0.22);
-  /* Electric Blue for Light Mode */
-  --refinement-glow: rgba(248, 250, 255, 1);
-  /* Light overlay for Hero */
-
-  /* Dark Theme Overrides */
-  --color-brand-void-dark: #020617;
-  --color-brand-deep-dark: #0a0c10;
-  --color-brand-white-dark: #f8faff;
-  --color-brand-silver-dark: #94a3b8;
+  /* Legacy references for compatibility */
+  --color-brand-void-dark: var(--color-brand-void);
+  --color-brand-deep-dark: var(--color-brand-deep);
+  --color-brand-white-dark: var(--color-brand-white);
+  --color-brand-silver-dark: var(--color-brand-silver);
 }
 
 @layer base {
-  .dark {
-    --color-brand-void: #000000;
-    --color-brand-deep: #050505;
-    --color-brand-charcoal: #0a0a0a;
-    --color-brand-smoke: #111111;
-    --color-brand-ash: #2e2d2b;
-    --color-brand-mist: #8a8780;
-    --color-brand-silver: #c8c2b8;
-    --color-brand-white: #ffffff;
-    --color-brand-accent: #a67c3b;
-    --color-brand-cream: #f0e8d8;   /* warm off-white — was near-black, now visible */
-    --color-final-bg: #1f1810;
-    --color-brand-airy: var(--color-brand-deep);
-    --glow-color: rgba(220, 180, 100, 0.15);
-    /* Soft Gold for Dark Mode */
-  }
-
   /* Strict Scroll Lock for Mobile Menu */
   body.overflow-hidden {
     overflow: hidden !important;
@@ -59,14 +33,41 @@
 }
 
 :root {
+  background: var(--color-brand-deep);
+  color: var(--color-brand-white);
+  position: relative;
   --background: var(--color-brand-deep);
   --foreground: var(--color-brand-white);
-  --logo-filter: brightness(0) !important;
-  transition: background 0.4s ease, color 0.4s ease;
+  --logo-filter: brightness(0) invert(1) brightness(1.5) !important;
 }
 
-.dark {
-  --logo-filter: brightness(0) invert(1) brightness(1.5) !important;
+/* Luxury Grain/Noise Overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -200%;
+  width: 400%;
+  height: 400%;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.05;
+  animation: noise 8s steps(10) infinite;
+  mix-blend-mode: overlay;
+}
+
+@keyframes noise {
+  0% { transform: translate(0,0) }
+  10% { transform: translate(-5%,-5%) }
+  20% { transform: translate(-10%,5%) }
+  30% { transform: translate(5%,-10%) }
+  40% { transform: translate(-5%,15%) }
+  50% { transform: translate(-10%,5%) }
+  60% { transform: translate(15%,0) }
+  70% { transform: translate(0,10%) }
+  80% { transform: translate(-15%,0) }
+  90% { transform: translate(10%,5%) }
+  100% { transform: translate(5%,0) }
 }
 
 body {
@@ -88,16 +89,11 @@ h4,
 /* Glass effect utilities missing from Tailwind core */
 /* Glass effect utilities adapted for Light Mode */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(10, 10, 10, 0.4);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
-}
-
-.dark .glass-panel {
-  background: rgba(10, 10, 10, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 }
 
 .text-stroke {

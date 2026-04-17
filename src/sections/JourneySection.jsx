@@ -57,7 +57,7 @@ export default function JourneySection() {
               style={{ opacity }}
               className="absolute inset-0 z-0"
             >
-              <div className="absolute inset-0 bg-white/40 dark:bg-brand-deep/60 z-10" />
+              <div className="absolute inset-0 bg-brand-deep/60 z-10" />
               <img
                 src={step.img}
                 alt={step.title}
@@ -93,7 +93,7 @@ export default function JourneySection() {
                   <h2 className="display-font text-5xl md:text-8xl lg:text-9xl font-bold text-brand-accent tracking-tighter leading-none max-w-4xl drop-shadow-[0_0_30px_rgba(46,91,255,0.1)]">
                     {step.title}
                   </h2>
-                  <p className="font-inter text-brand-warm/60 dark:text-brand-white/60 text-base md:text-xl font-light max-w-lg leading-relaxed">
+                  <p className="font-inter text-brand-white/60 text-base md:text-xl font-light max-w-lg leading-relaxed">
                     {step.desc}
                   </p>
                   

@@ -91,9 +91,9 @@ export default function Contact() {
                 <button
                   key={card.id}
                   onClick={() => setRegType(card.id)}
-                  className="group relative flex flex-col items-center text-center p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-brand-accent/50 hover:bg-brand-accent/[0.03] transition-all duration-500 backdrop-blur-sm"
+                  className="group relative flex flex-col items-center text-center p-8 rounded-3xl bg-brand-white/[0.02] border border-brand-white/5 hover:border-brand-accent/50 hover:bg-brand-accent/[0.03] transition-all duration-500 backdrop-blur-sm"
                 >
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-accent/10 transition-all duration-500">
+                  <div className="w-16 h-16 rounded-2xl bg-brand-white/5 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-accent/10 transition-all duration-500">
                     <card.icon className="w-8 h-8 text-brand-white group-hover:text-brand-accent transition-colors" />
                   </div>
                   <h3 className="display-font text-2xl font-light text-brand-white">

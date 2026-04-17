@@ -94,7 +94,7 @@ export default function WhySection() {
             <motion.div
               key={point.title}
               {...fadeUp(i * 0.07)}
-              className="group glass-panel border border-brand-accent/10 rounded-2xl p-7 md:p-8 hover:border-brand-accent/40 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-accent/5 flex flex-col gap-4 bg-white/40 dark:bg-brand-white/[0.03]"
+              className="group glass-panel border border-brand-accent/10 rounded-2xl p-7 md:p-8 hover:border-brand-accent/40 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-accent/5 flex flex-col gap-4 bg-brand-white/[0.03]"
             >
               <div className="w-12 h-12 rounded-xl bg-brand-accent/5 border border-brand-accent/10 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent/10 transition-colors duration-300">
                 {point.icon}
@@ -102,7 +102,7 @@ export default function WhySection() {
               <h3 className="display-font text-lg font-bold text-brand-accent group-hover:drop-shadow-[0_0_15px_rgba(46,91,255,0.2)] transition-all duration-300 leading-tight">
                 {point.title}
               </h3>
-              <p className="font-inter text-sm text-brand-warm/60 dark:text-brand-white/60 font-light leading-relaxed flex-1">
+              <p className="font-inter text-sm text-brand-white/60 font-light leading-relaxed flex-1">
                 {point.desc}
               </p>
             </motion.div>
@@ -112,7 +112,7 @@ export default function WhySection() {
         {/* Final CTA banner */}
         <motion.div
           {...fadeUp(0.2)}
-          className="relative glass-panel border border-brand-accent/20 rounded-2xl p-10 md:p-14 text-center overflow-hidden bg-white/60 dark:bg-brand-white/[0.05]"
+          className="relative glass-panel border border-brand-accent/20 rounded-2xl p-10 md:p-14 text-center overflow-hidden bg-brand-white/[0.05]"
         >
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] rounded-full blur-[80px] opacity-10 bg-brand-accent" />
@@ -122,7 +122,7 @@ export default function WhySection() {
           <h3 className="display-font text-[clamp(1.5rem,3.5vw,4rem)] font-light text-brand-accent leading-tight tracking-tight mb-4">
             Stop learning. <em className="italic font-bold text-brand-accent">Start building.</em>
           </h3>
-          <p className="font-inter text-brand-warm/80 dark:text-brand-white/80 font-light text-base mb-10 max-w-md mx-auto leading-relaxed">
+          <p className="font-inter text-brand-white/80 font-light text-base mb-10 max-w-md mx-auto leading-relaxed">
             Work on real systems. Ship real products. Get industry-ready in months — not years.
           </p>
 

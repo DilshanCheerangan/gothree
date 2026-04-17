@@ -1,28 +1,31 @@
-"use client";
-
 import Hero from "@/components/Hero";
 import EthosSection from "@/sections/EthosSection";
-import JourneySection from "@/sections/JourneySection";
-import DomainsSection from "@/sections/DomainsSection";
-import WhySection from "@/sections/WhySection";
+import MissionSection from "@/sections/MissionSection";
+import SpecialtySection from "@/sections/SpecialtySection";
+import ServicesSection from "@/sections/ServicesSection";
+import FinalCTA from "@/sections/FinalCTA";
 
 export default function Page() {
   return (
-    <main className="w-full min-h-screen bg-brand-deep flex relative flex-col">
-      {/* 1 · Full-viewport cinematic hero */}
+    <main className="relative w-full min-h-screen bg-brand-deep flex flex-col">
+      
+      {/* SCENE 0: Hero */}
       <Hero />
 
-      {/* 2 · Real Talk: No lectures, no passive learning, only building */}
+      {/* SCENE 1: Ethos Comparison */}
       <EthosSection />
 
-      {/* 3 · The journey: Pick domain → Real projects → Get certified */}
-      <JourneySection />
+      {/* SCENE 2: Mission */}
+      <MissionSection />
 
-      {/* 4 · Open domains: real internship cards from data */}
-      <DomainsSection />
+      {/* SCENE 3: Specialty Reveal */}
+      <SpecialtySection />
 
-      {/* 5 · Why GoThree + final CTA banner */}
-      <WhySection />
+      {/* SCENE 4: Services Carousel */}
+      <ServicesSection />
+
+      {/* SCENE 5: Final CTA */}
+      <FinalCTA />
     </main>
   );
 }

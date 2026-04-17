@@ -62,7 +62,7 @@ export default function DomainsSection() {
           <h2 className="display-font text-[clamp(2.5rem,6vw,7rem)] font-bold text-brand-accent leading-none tracking-tighter max-w-4xl drop-shadow-[0_0_30px_rgba(46,91,255,0.1)]">
             Choose your <span className="italic font-light opacity-60">focus.</span>
           </h2>
-          <p className="font-inter text-brand-warm/60 dark:text-brand-white/50 font-light text-base md:text-xl mt-8 max-w-2xl leading-relaxed">
+          <p className="font-inter text-brand-white/50 font-light text-base md:text-xl mt-8 max-w-2xl leading-relaxed">
             Six focused tracks built around real briefs. Select a rail to see how we build.
           </p>
         </div>
@@ -86,7 +86,7 @@ export default function DomainsSection() {
                 transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
                 className={cn(
                   "relative group overflow-hidden glass-panel border border-brand-accent/10 rounded-3xl p-6 transition-all duration-500 flex flex-col justify-between cursor-pointer mobile-glow-pulse",
-                  isActive ? "bg-white/60 border-brand-accent/30 shadow-2xl shadow-brand-accent/5" : "bg-white/30"
+                  isActive ? "bg-brand-white/[0.08] border-brand-accent/30 shadow-2xl shadow-brand-accent/5" : "bg-brand-white/[0.03]"
                 )}
                 style={{ "--domain-color": cfg.accent }}
               >

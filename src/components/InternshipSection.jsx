@@ -47,7 +47,7 @@ export default function InternshipSection({ data, index, onClick }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.2 }}
-            className="font-inter text-brand-silver font-medium mt-8 max-w-xl text-lg leading-relaxed dark:font-light"
+            className="font-inter text-brand-silver font-light mt-8 max-w-xl text-lg leading-relaxed"
           >
             {data.description}
           </motion.p>
@@ -65,7 +65,7 @@ export default function InternshipSection({ data, index, onClick }) {
           </motion.div>
         </div>
 
-        {/* Abstract Data Representation (Enhanced for Light Theme) */}
+        {/* Abstract Data Representation */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -88,7 +88,7 @@ export default function InternshipSection({ data, index, onClick }) {
 
       </div>
 
-      {/* Separator - Sharply visible grey in light mode */}
+      {/* Separator */}
       <div className={`mt-16 md:mt-24 w-1/4 h-[1px] bg-brand-ash/40 ${isEven ? 'self-end' : 'self-start'}`} />
     </motion.section>
   );

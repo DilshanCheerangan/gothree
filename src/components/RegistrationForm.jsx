@@ -83,7 +83,7 @@ export default function RegistrationForm() {
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="text-center p-8 md:p-12 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-xl"
+        className="text-center p-8 md:p-12 bg-brand-white/[0.03] border border-brand-white/10 rounded-2xl backdrop-blur-xl"
       >
         <div className="w-16 h-16 md:w-20 md:h-20 bg-brand-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <CircleCheck className="w-8 h-8 md:w-10 md:h-10 text-brand-accent" />
@@ -97,7 +97,7 @@ export default function RegistrationForm() {
           href="https://chat.whatsapp.com/H7ym02zyZI18A1ymOHfBS2" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 md:px-8 md:py-3 rounded-full font-bold hover:scale-105 transition-transform text-sm md:text-base"
+          className="inline-flex items-center gap-2 bg-brand-white text-brand-void px-6 py-3 md:px-8 md:py-3 rounded-full font-bold hover:scale-105 transition-transform text-sm md:text-base"
         >
           Join WhatsApp Group <ArrowRight className="w-4 h-4" />
         </a>
@@ -203,7 +203,7 @@ export default function RegistrationForm() {
 
         {/* RIGHT COLUMN: Program Selection */}
         <div className="lg:col-span-5 space-y-6">
-          <Card className="border-white/5 bg-white/[0.02] backdrop-blur-xl">
+          <Card className="border-brand-white/5 bg-brand-white/[0.02] backdrop-blur-xl">
             <CardContent className="pt-6 px-4 md:px-6">
               <h4 className="font-bold text-brand-white mb-4 text-sm md:text-base">Internship Program Selection</h4>
               
@@ -222,7 +222,7 @@ export default function RegistrationForm() {
                       "relative block cursor-pointer rounded-xl border p-3 md:p-4 transition-all duration-300",
                       selectedProgram === program.value
                         ? "border-brand-accent/50 bg-brand-accent/5 ring-1 ring-brand-accent/20"
-                        : "border-white/5 bg-white/[0.01] hover:border-white/10"
+                        : "border-brand-white/5 bg-brand-white/[0.01] hover:border-brand-white/10"
                     )}
                   >
                     <div className="flex items-start gap-3">

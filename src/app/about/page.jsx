@@ -13,7 +13,7 @@ const fadeUp = (delay = 0) => ({
 
 export default function AboutPage() {
   return (
-    <main className="w-full min-h-screen bg-brand-deep">
+    <main className="relative w-full min-h-screen bg-brand-deep">
 
       {/* ── HERO SECTION ── */}
       <section className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden">

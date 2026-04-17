@@ -99,7 +99,7 @@ const fadeUp = (delay = 0) => ({
 
 export default function ContactPage() {
   return (
-    <main className="w-full min-h-screen bg-brand-deep overflow-x-hidden">
+    <main className="relative w-full min-h-screen bg-brand-deep overflow-x-hidden">
 
       {/* ── HERO ── */}
       <section className="relative w-full min-h-[55vh] flex flex-col items-center justify-center px-6 text-center overflow-hidden pt-32 pb-20">

@@ -2,34 +2,43 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export default function Hero() {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
 
-  // Mouse parallax state
+  // State and refs
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isWebGLAvailable, setIsWebGLAvailable] = useState(true);
 
   useEffect(() => {
     // Mouse following parallax disabled to prevent lag
     // Keeping state structure intact to avoid breaking Three.js closure logic
   }, []);
 
-  // Three.js setup
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvasRef.current,
-      antialias: true,
-      alpha: true,
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas: canvasRef.current,
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.1;
+    } catch (e) {
+      console.error("Hero Section: WebGL initialization failed or blocked.", e);
+      setIsWebGLAvailable(false);
+      return;
+    }
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -210,7 +219,15 @@ export default function Hero() {
     return () => {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
-      renderer.dispose();
+      
+      if (renderer) {
+        // Force fully release context if extension is available
+        const extension = renderer.getContext().getExtension('WEBGL_lose_context');
+        if (extension) extension.loseContext();
+        
+        renderer.dispose();
+      }
+      
       ring1Geo.dispose();
       ring2Geo.dispose();
       ring3Geo.dispose();
@@ -218,14 +235,50 @@ export default function Hero() {
       metalMat.dispose();
       accentMat.dispose();
       logoMat.dispose();
+      logoTexture.dispose();
     };
-  }, []);
+  }, [isWebGLAvailable]);
+
+  // Scroll Parallax logic for text elements
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const yHeadline = useTransform(scrollYProgress, [0, 1], [0, -280]);
+  const yDesc = useTransform(scrollYProgress, [0, 1], [0, -180]);
+  const yCTA = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const yImpact = useTransform(scrollYProgress, [0, 1], [0, -280]);
 
   // Sync state to global window for Three.js closure access without re-rendering
   useEffect(() => {
     window.mousePosX = mousePos.x;
     window.mousePosY = mousePos.y;
   }, [mousePos]);
+
+  // Helper component for Hero CTA Buttons
+  const HeroCTA = ({ href, label, delay }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 20, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay, duration: 0.8, ease: "easeOut" }}
+    >
+      <Link
+        href={href}
+        className="group relative flex items-center gap-3 px-7 py-3.5 md:px-6 md:py-3 rounded-full overflow-hidden transition-all duration-300 ease-out active:scale-95 bg-white/5 backdrop-blur-md border border-white/10 text-brand-white hover:border-brand-accent/50 shadow-xl shadow-black/20"
+      >
+        <div className="absolute inset-0 bg-brand-accent translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
+        <span className="relative font-inter text-[11px] font-black tracking-widest uppercase z-10 group-hover:text-white transition-colors whitespace-nowrap">
+          {label}
+        </span>
+        <div className="relative w-5 h-5 rounded-full flex items-center justify-center z-10 transition-colors bg-white/10 group-hover:bg-brand-accent">
+          <svg className="w-2.5 h-2.5 transition-colors text-white group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </Link>
+    </motion.div>
+  );
 
   return (
     <section
@@ -245,10 +298,20 @@ export default function Hero() {
       </div>
 
       {/* Three.js Canvas — the central focal element */}
-      <canvas ref={canvasRef} className="absolute inset-0 z-10 w-full h-full" />
+      {isWebGLAvailable ? (
+        <canvas ref={canvasRef} className="absolute inset-0 z-10 w-full h-full" />
+      ) : (
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+           {/* Fallback branded visuals when WebGL is blocked */}
+           <div className="relative w-72 h-72 opacity-20 bg-brand-accent/10 rounded-full blur-3xl animate-pulse" />
+        </div>
+      )}
 
       {/* ── TOP-LEFT: Main headline ── */}
-      <div className="absolute top-[18%] md:top-[18%] left-[8%] md:left-14 z-20 max-w-[85%] md:max-w-[42vw]">
+      <motion.div 
+        style={{ y: yHeadline }}
+        className="absolute top-[18%] md:top-[18%] left-[8%] md:left-14 z-20 max-w-[85%] md:max-w-[42vw]"
+      >
         <motion.div
            initial={{ opacity: 0, x: -20 }}
            animate={{ opacity: 1, x: 0 }}
@@ -283,10 +346,11 @@ export default function Hero() {
             </motion.span>
           </div>
         </h1>
-      </div>
+      </motion.div>
 
       {/* ── BOTTOM-LEFT: Tagline + description ── */}
       <motion.div
+        style={{ y: yDesc }}
         className="absolute bottom-[10%] left-8 md:left-14 z-20 max-w-[260px]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -300,31 +364,21 @@ export default function Hero() {
         </p>
       </motion.div>
 
-      {/* ── BOTTOM-CENTER: CTA Button ── */}
+      {/* ── BOTTOM-CENTER: Multi-Action Rail ── */}
       <motion.div
-        className="absolute bottom-[12%] md:bottom-[8%] left-1/2 -translate-x-1/2 z-20"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1.0, duration: 0.8 }}
+        style={{ y: yCTA }}
+        className="absolute bottom-[13%] md:bottom-[8%] left-1/2 -translate-x-1/2 z-20 flex flex-col md:flex-row items-center gap-3 md:gap-4"
       >
-        <Link
-          href="/internships"
-          className="group relative flex items-center gap-3 bg-brand-white text-brand-void px-8 py-4 md:px-7 md:py-3.5 rounded-full overflow-hidden transition-all duration-300 ease-out shadow-2xl shadow-brand-accent/20 active:scale-95"
-        >
-          <div className="absolute inset-0 bg-brand-accent translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
-          <span className="relative font-inter text-[13px] md:text-[11px] font-black tracking-widest uppercase z-10 group-hover:text-white transition-colors whitespace-nowrap">
-            Explore Internships
-          </span>
-          <div className="relative w-6 h-6 rounded-full bg-brand-void/10 flex items-center justify-center z-10 group-hover:bg-white/20 transition-colors">
-            <svg className="w-3 h-3 text-brand-void group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </div>
-        </Link>
+        <HeroCTA href="/internships" label="Internships" delay={1.0} />
+        <HeroCTA href="/courses" label="Courses" delay={1.15} />
+        <HeroCTA href="/training" label="Training" delay={1.3} />
       </motion.div>
 
       {/* ── BOTTOM-RIGHT: Counter-headline ── */}
-      <div className="absolute bottom-[20%] md:bottom-[10%] right-[8%] md:right-14 z-20 text-right max-w-[70%] md:max-w-[42vw]">
+      <motion.div 
+        style={{ y: yImpact }}
+        className="absolute bottom-[20%] md:bottom-[10%] right-[8%] md:right-14 z-20 text-right max-w-[70%] md:max-w-[42vw]"
+      >
         <h2 className="display-font text-[clamp(1.8rem,7vw,7rem)] md:text-[clamp(2.2rem,5.5vw,7rem)] font-light text-brand-white leading-[0.85] md:leading-[0.88] tracking-tight">
           <div className="overflow-hidden">
             <motion.span
@@ -341,13 +395,13 @@ export default function Hero() {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: [0.33, 1, 0.68, 1] }}
-              className="inline-block font-bold text-brand-white"
+              className="inline-block italic font-bold text-brand-accent"
             >
               impact.
             </motion.span>
           </div>
         </h2>
-      </div>
+      </motion.div>
 
       {/* ── SCROLL DOWN indicator ── */}
       <motion.div

@@ -2,13 +2,17 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isAtTop, setIsAtTop] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const timeoutRef = useRef(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -41,6 +45,65 @@ export default function Navbar() {
       document.documentElement.classList.remove("dark");
     }
   };
+
+  // Scroll Handling Logic
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // 1. Always show at the top (Hero Section)
+      if (currentScrollY < 50) {
+        setIsAtTop(true);
+        setIsVisible(true);
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      } else {
+        setIsAtTop(false);
+
+        // 2. Hide on scroll down
+        if (currentScrollY > lastScrollY) {
+          // If menu is open, don't hide
+          if (!isMenuOpen) {
+            setIsVisible(false);
+          }
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        } 
+        // 3. Show on scroll up (for 5 seconds)
+        else if (currentScrollY < lastScrollY) {
+          setIsVisible(true);
+          
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
+          
+          timeoutRef.current = setTimeout(() => {
+            // Only hide if we aren't at the top of the page
+            if (window.scrollY > 50 && !isMenuOpen) {
+              setIsVisible(false);
+            }
+          }, 5000);
+        }
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [lastScrollY, isMenuOpen]);
+
+  // 4. Hover Reveal Logic (Cursor at top of screen)
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      // If cursor is within top 50px of viewport
+      if (e.clientY < 50) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   // LEFT side nav links
   const leftLinks = [
@@ -112,9 +175,15 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.5, duration: 1 }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ 
+        y: isVisible ? 0 : -100,
+        opacity: isVisible ? 1 : 0
+      }}
+      transition={{ 
+        duration: 0.6, 
+        ease: [0.22, 1, 0.36, 1] // Custom smooth ease
+      }}
       className="fixed top-0 left-0 w-full z-[100] px-6 py-6 md:px-12 flex justify-between items-center pointer-events-none"
     >
       {/* LEFT: Home, Internships, Courses, About */}

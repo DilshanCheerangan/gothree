@@ -29,7 +29,7 @@ export default function EthosSection() {
       {/* Background Watermark - High-fidelity GOTHREE branding */}
       <motion.div
         style={{ y: useTransform(scrollYProgress, [0, 1], [0, -150]) }}
-        className="absolute top-0 left-0 w-full text-center text-[16vw] font-black text-brand-accent/[0.03] select-none pointer-events-none leading-none tracking-[-0.05em]"
+        className="absolute top-0 left-0 w-full text-center text-[24.5vw] font-black text-brand-accent/[0.04] select-none pointer-events-none leading-none tracking-[-0.08em] whitespace-nowrap overflow-hidden"
       >
         GOTHREE
       </motion.div>

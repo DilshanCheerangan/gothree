@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import GeomCenterpiece from "@/components/ui/GeomCenterpiece";
 
 export default function PurposeSection() {
   const container = useRef(null);
@@ -23,6 +24,9 @@ export default function PurposeSection() {
       {/* Decorative vertical rules to match the 'luxury' vibe */}
       <div className="absolute top-0 left-12 w-px h-full bg-brand-accent/5 hidden md:block" />
       <div className="absolute top-0 right-12 w-px h-full bg-brand-accent/5 hidden md:block" />
+
+      {/* 3D Centerpiece Integration */}
+      <GeomCenterpiece />
 
       <div className="w-full max-w-[1600px] flex flex-col md:flex-row justify-between items-center relative gap-12 md:gap-0">
 

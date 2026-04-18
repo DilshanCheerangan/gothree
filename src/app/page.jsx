@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import EthosSection from "@/sections/EthosSection";
-import MissionSection from "@/sections/MissionSection";
+import PurposeSection from "@/sections/PurposeSection";
 import SpecialtySection from "@/sections/SpecialtySection";
 import ServicesSection from "@/sections/ServicesSection";
 import FinalCTA from "@/sections/FinalCTA";
@@ -15,9 +15,9 @@ export default function Page() {
       {/* SCENE 1: Ethos Comparison */}
       <EthosSection />
 
-      {/* SCENE 2: Mission */}
-      <MissionSection />
-
+      {/* SCENE 2: Move with Purpose */}
+      <PurposeSection />
+ 
       {/* SCENE 3: Specialty Reveal */}
       <SpecialtySection />
 

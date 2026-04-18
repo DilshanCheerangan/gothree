@@ -36,28 +36,6 @@ export default function EthosSection() {
       </div>
 
 
-      {/* Narrative vertical anchor line - Now acting as a continuous 'bridge' */}
-      <div className="relative z-10 flex flex-col items-center pt-[20vw]">
-        {/* Entrance Line */}
-        <motion.div
-          style={{
-            height: useTransform(smoothProgress, [0, 0.3], [40, 100]),
-            opacity: useTransform(smoothProgress, [0, 0.2], [0, 1])
-          }}
-          className="w-px bg-gradient-to-b from-brand-accent/40 to-brand-accent/10"
-        />
-
-        <span className="font-space text-[9px] tracking-[0.6em] uppercase text-brand-accent/60 my-10">Trajectory Bridge</span>
-
-        {/* Exit Line - Leading into the next section */}
-        <motion.div
-          style={{
-            height: useTransform(smoothProgress, [0.1, 0.45], [0, 250]),
-            opacity: useTransform(smoothProgress, [0.1, 0.25], [0, 1])
-          }}
-          className="w-px bg-gradient-to-b from-brand-accent/10 to-transparent"
-        />
-      </div>
     </section>
   );
 }

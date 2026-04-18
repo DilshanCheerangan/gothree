@@ -7,8 +7,8 @@ import FinalCTA from "@/sections/FinalCTA";
 
 export default function Page() {
   return (
-    <main className="relative w-full min-h-screen bg-brand-deep flex flex-col">
-      
+    <main className="relative w-full min-h-screen bg-transparent flex flex-col">
+
       {/* SCENE 0: Hero */}
       <Hero />
 

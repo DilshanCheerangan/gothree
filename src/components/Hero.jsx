@@ -289,7 +289,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-screen bg-brand-deep overflow-hidden"
+      className="relative w-full h-screen bg-transparent overflow-hidden"
     >
       {/* Background image */}
       <div className="absolute inset-0 z-0 overflow-hidden">

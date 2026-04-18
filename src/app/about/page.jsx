@@ -95,8 +95,8 @@ export default function AboutPage() {
           Ready to build<br />
           <em className="italic font-bold text-brand-cream">real skills?</em>
         </motion.h2>
-        <motion.p {...fadeUp(0.2)} className="font-inter text-brand-silver font-light text-base max-w-md mb-10 leading-relaxed">
-          Join GoThree's internship programs and take the first step toward a career that matters.
+        <motion.p {...fadeUp(0.2)} className="font-inter text-brand-silver font-light text-base max-w-lg mb-10 leading-relaxed">
+          Join our ecosystem of immersive internships, specialized courses, and hands-on training to take the first step toward a career that matters.
         </motion.p>
 
         <motion.div {...fadeUp(0.3)} className="flex flex-col sm:flex-row gap-4">
@@ -104,7 +104,7 @@ export default function AboutPage() {
             href="/internships"
             className="group relative flex items-center gap-3 bg-brand-accent text-white px-8 py-4 rounded-full overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-brand-accent/30 font-inter text-xs font-black tracking-widest uppercase"
           >
-            <span>Explore Internships</span>
+            <span>Explore Programs</span>
             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>

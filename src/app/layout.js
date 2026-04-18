@@ -3,6 +3,7 @@ import "./globals.css";
 import LenisProvider from "@/components/LenisProvider";
 import Navbar from "@/components/Navbar";
 import IntroOverlay from "@/components/IntroOverlay";
+import BackgroundAtmosphere from "@/components/BackgroundAtmosphere";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${spaceGrotesk.variable} antialiased selection:bg-brand-accent selection:text-brand-deep`}
     >
       <body className="min-h-screen bg-brand-deep text-brand-white flex flex-col relative overflow-x-hidden">
+        <BackgroundAtmosphere />
         <IntroOverlay />
         <Navbar />
         <LenisProvider>

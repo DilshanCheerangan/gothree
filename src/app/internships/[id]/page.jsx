@@ -55,7 +55,7 @@ export default function InternshipDetailPage({ params }) {
         <div className="flex flex-col md:flex-row items-end gap-12 relative">
           {/* Giant Watermark shorthand */}
           <div className="absolute -top-12 md:-top-16 -left-4 md:-left-20 opacity-[0.03] select-none pointer-events-none font-space text-[10rem] md:text-[22rem] font-black leading-none uppercase tracking-tighter transition-all duration-500">
-            {data.id.split('-')[0]}
+            {data.shorthand}
           </div>
 
           <div className="flex-1 relative z-10 w-full">
@@ -178,7 +178,7 @@ export default function InternshipDetailPage({ params }) {
                     <ArrowUpRight className="w-5 h-5" />
                   </div>
                   <span className="font-space text-[10px] md:text-[11px] font-bold text-brand-silver group-hover:text-brand-accent uppercase tracking-widest text-center px-4 transition-colors">
-                    {p.title.split(' ')[0]} {p.title.split(' ')[1] === '&' ? '& ' + p.title.split(' ')[2] : ''}
+                    {p.shorthand}
                   </span>
                 </Link>
               </motion.div>

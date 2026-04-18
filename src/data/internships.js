@@ -4,7 +4,7 @@ export const internships = [
     title: "Cyber Systems & Neural Defense",
     tagline: "Architecting the impenetrable.",
     description: "Engineering resilient security architectures. You don't just find vulnerabilities; you build systems that outpace the threat. Master the art of defensive engineering through high-stakes penetration scenarios.",
-    duration: "3 Months",
+    duration: "1 Month",
     location: "Hybrid",
     highlights: [
       "Advanced Penetration Research",
@@ -17,14 +17,15 @@ export const internships = [
       "Engineer the complete security lifecycle — from threat modeling to deep-patch deployment.",
       "Collaborate as a Lead Security Architect on a full-system audit and recovery mission."
     ],
-    theme: "cyber"
+    theme: "cyber",
+    shorthand: "Cyber"
   },
   {
     id: "ar-game-dev",
     title: "Spatial Computing & Immersive Physics",
     tagline: "Logic meets perception.",
     description: "Crafting the next generation of human-computer interaction. From the laws of physics to the art of presence, you will engineer immersive environments that redefine physical boundaries.",
-    duration: "3 Months",
+    duration: "1 Month",
     location: "Hybrid",
     highlights: [
       "Spatial UI/UX Architecture",
@@ -37,15 +38,16 @@ export const internships = [
       "Engineer complex AR portals and interactive systems that bridge the digital and physical.",
       "Lead the production of a multi-sensory immersive experience from initial wireframe to final build."
     ],
-    theme: "ar"
+    theme: "ar",
+    shorthand: "AR / Game"
   },
   {
     id: "advanced-python",
     title: "Core Intelligence Engineering",
     tagline: "High-performance logic at scale.",
     description: "Mastering the backbone of modern global automation. You will build production-grade data pipelines and resilient backends that drive industrial-scale applications.",
-    duration: "2 Months",
-    location: "Online",
+    duration: "1 Month",
+    location: "Hybrid",
     highlights: [
       "Industrial Data Pipelines",
       "Scalable Backend Architecture",
@@ -57,14 +59,15 @@ export const internships = [
       "Master advanced algorithmic efficiency and distributed data structures.",
       "Collaborate on the architecture of a production-ready core engine."
     ],
-    theme: "python"
+    theme: "python",
+    shorthand: "Python"
   },
   {
     id: "web-development",
     title: "Full-Stack Systems Architecture",
     tagline: "High-fidelity digital surfaces.",
     description: "Bridging complex backend logic with cinematic frontend surfaces. Architect complete, production-ready ecosystems from database schema to the final pixel of interaction.",
-    duration: "3 Months",
+    duration: "1 Month",
     location: "Hybrid",
     highlights: [
       "Cinematic Interface Engineering",
@@ -77,15 +80,16 @@ export const internships = [
       "Master the art of high-fidelity frontend engineering with complex motion and state.",
       "Own the entire deployment lifecycle — from containerization to global distribution."
     ],
-    theme: "web"
+    theme: "web",
+    shorthand: "Web"
   },
   {
     id: "app-development",
     title: "Native Mobility Systems",
     tagline: "Refined logic. Native performance.",
     description: "Crafting fluid, high-performance mobile experiences. Mastering the intersection of cross-platform efficiency and native-grade performance for global iOS and Android deployment.",
-    duration: "3 Months",
-    location: "Online",
+    duration: "1 Month",
+    location: "Hybrid",
     highlights: [
       "Native-Grade Performance",
       "Complex Gesture Architecture",
@@ -97,15 +101,16 @@ export const internships = [
       "Engineer refined, native-grade animations and fluid transition systems.",
       "Lead the distribution of a production-quality application to the global market."
     ],
-    theme: "app"
+    theme: "app",
+    shorthand: "App"
   },
   {
     id: "artificial-intelligence",
     title: "Machine Intel & Predictive Systems",
     tagline: "Engineering future intelligence.",
     description: "Building high-accuracy neural models. Shipping refined ML pipelines that transform raw data into autonomous, actionable decision-making engines.",
-    duration: "3 Months",
-    location: "Online",
+    duration: "1 Month",
+    location: "Hybrid",
     highlights: [
       "Neural Model Architecture",
       "Autonomous Decision Engines",
@@ -117,6 +122,7 @@ export const internships = [
       "Engineer predictive systems for NLP, computer vision, and autonomous forecasting.",
       "Deliver a portfolio of smart applications backed by rigorous independent research."
     ],
-    theme: "ai"
+    theme: "ai",
+    shorthand: "AI"
   }
 ];

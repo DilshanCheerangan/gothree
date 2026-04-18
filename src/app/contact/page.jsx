@@ -36,8 +36,8 @@ const contacts = [
     id: "email",
     label: "Email",
     sublabel: "Send us a message",
-    value: "info@gothree.in",
-    href: "mailto:info@gothree.in",
+    value: "gothreecustomerservices@gmail.com",
+    href: "mailto:gothreecustomerservices@gmail.com",
     external: false,
     color: "#2e5bff",
     icon: (

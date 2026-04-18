@@ -15,6 +15,8 @@ export default function PurposeSection() {
 
   const y1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const y2 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const pcY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
 
   return (
     <section
@@ -25,10 +27,14 @@ export default function PurposeSection() {
       <div className="absolute top-0 left-12 w-px h-full bg-brand-accent/5 hidden md:block" />
       <div className="absolute top-0 right-12 w-px h-full bg-brand-accent/5 hidden md:block" />
 
-      {/* 3D Centerpiece Integration */}
-      <GeomCenterpiece />
+      <motion.div 
+        className="absolute left-1/2 top-[35%] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50 scale-[1.0] md:scale-[1.6] drop-shadow-[0_45px_100px_rgba(0,0,0,0.9)]"
+        style={{ opacity, y: pcY }}
+      >
+        <GeomCenterpiece scrollProgress={scrollYProgress} />
+      </motion.div>
 
-      <div className="w-full max-w-[1600px] flex flex-col md:flex-row justify-between items-center relative gap-12 md:gap-0">
+      <div className="w-full max-w-[1600px] flex flex-col md:flex-row justify-between items-center relative gap-12 md:gap-0 z-10">
 
         {/* LEFT BLOCK: "Move with" */}
         <div className="flex flex-col items-start w-full md:w-auto">

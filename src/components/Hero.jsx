@@ -291,17 +291,7 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full h-screen bg-transparent overflow-hidden"
     >
-      {/* Background image */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <motion.img
-          src="/hero-bg.png"
-          alt="Technical background"
-          className="w-full h-full object-cover opacity-10 scale-110 grayscale brightness-125"
-          initial={{ opacity: 0, scale: 1.15 }}
-          animate={{ opacity: 0.1, scale: 1.05 }}
-          transition={{ duration: 4, ease: "easeOut" }}
-        />
-      </div>
+      {/* Background neutrality — handled by BackgroundAtmosphere */}
 
       {/* Three.js Canvas — the central focal element */}
       {isWebGLAvailable ? (

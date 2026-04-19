@@ -45,7 +45,7 @@ export default function ServicesSection() {
     const smoothProgress = useSpring(scrollYProgress, { stiffness: 45, damping: 20 });
 
     return (
-        <section ref={container} className="relative w-full h-[350vh] bg-transparent">
+        <section ref={container} className="relative w-full h-[200vh] bg-transparent">
             <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden px-6 md:px-16">
 
                 {/* Split Grid Layout */}

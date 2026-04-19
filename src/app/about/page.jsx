@@ -101,10 +101,10 @@ export default function AboutPage() {
 
         <motion.div {...fadeUp(0.3)} className="flex flex-col sm:flex-row gap-4">
           <Link
-            href="/internships"
+            href="/register"
             className="group relative flex items-center gap-3 bg-brand-accent text-white px-8 py-4 rounded-full overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-brand-accent/30 font-inter text-xs font-black tracking-widest uppercase"
           >
-            <span>Explore Programs</span>
+            <span>Join</span>
             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>

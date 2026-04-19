@@ -21,6 +21,18 @@
   --color-brand-deep-dark: var(--color-brand-deep);
   --color-brand-white-dark: var(--color-brand-white);
   --color-brand-silver-dark: var(--color-brand-silver);
+
+  @keyframes aurora {
+    from {
+      background-position: 50% 50%, 50% 50%;
+    }
+    to {
+      background-position: 350% 50%, 350% 50%;
+    }
+  }
+
+  /* Aurora Animation */
+  --animate-aurora: aurora 60s linear infinite;
 }
 
 @layer base {

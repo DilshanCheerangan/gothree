@@ -291,7 +291,7 @@ export default function Hero() {
       ref={containerRef}
       className="relative w-full h-screen bg-transparent overflow-hidden"
     >
-      {/* Background neutrality — handled by BackgroundAtmosphere */}
+      {/* No background focus layers - Pure Black Void */}
 
       {/* Three.js Canvas — the central focal element */}
       {isWebGLAvailable ? (

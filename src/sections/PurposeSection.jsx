@@ -28,7 +28,7 @@ export default function PurposeSection() {
   return (
     <section
       ref={container}
-      className="relative w-full h-[180vh] bg-transparent"
+      className="relative w-full h-[130vh] bg-transparent mt-24"
     >
       {/* 
           STICKY WRAPPER: 

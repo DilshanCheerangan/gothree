@@ -7,7 +7,7 @@ import { FloatingPaths } from "@/components/ui/background-paths";
 
 export default function FinalCTA() {
   return (
-    <section className="relative w-full pt-64 pb-24 px-6 flex flex-col items-center justify-center text-center overflow-hidden bg-transparent">
+    <section className="relative w-full pt-20 pb-24 px-6 flex flex-col items-center justify-center text-center overflow-hidden bg-transparent">
       {/* Background Trajectory Paths */}
       <div className="absolute inset-0 z-0">
         <FloatingPaths position={1} />
@@ -55,7 +55,7 @@ export default function FinalCTA() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 2, delay: 0.5 }}
-        className="mt-64 w-full flex flex-col items-center gap-12 px-10"
+        className="mt-16 w-full flex flex-col items-center gap-12 px-10"
       >
         <div className="w-full max-w-screen-xl h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
@@ -63,7 +63,7 @@ export default function FinalCTA() {
           <div className="flex items-center gap-6">
             <span className="display-font text-3xl font-black italic tracking-tighter text-brand-white">GoThree.</span>
             <div className="hidden md:block w-px h-8 bg-white/10" />
-            <span className="font-space text-[9px] tracking-[0.5em] uppercase opacity-40">Systemic Precision Engineering</span>
+            <span className="font-space text-[9px] tracking-[0.5em] uppercase opacity-40">Move with purpose</span>
           </div>
 
           <div className="flex gap-10">

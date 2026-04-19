@@ -22,7 +22,7 @@ export default function SpecialtySection() {
     let charCount = 0;
  
     return (
-      <section ref={container} className="relative w-full py-32 md:py-48 bg-transparent">
+      <section ref={container} className="relative w-full py-10 md:py-16 bg-transparent">
         <div className="w-full flex items-center justify-center px-6 md:px-16 overflow-hidden">
   
           <div className="max-w-7xl w-full relative z-10 px-4 md:px-0">
